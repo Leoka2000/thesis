@@ -1,4 +1,4 @@
-django-rdkit @ git+https://github.com/rdkit/django-rdkit.git@8a21343e6b24ac377a1d0cbf88f7e081daac8428
+
 Django<4.2
 gunicorn==23.0.0
 django-tailwind==3.8.0
