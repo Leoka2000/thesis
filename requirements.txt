@@ -1,3 +1,4 @@
+rdkit @ file:///Users/runner/miniforge3/conda-bld/rdkit-meta_1730203937302/work
 Django<4.2
 gunicorn==23.0.0
 django-tailwind==3.8.0
