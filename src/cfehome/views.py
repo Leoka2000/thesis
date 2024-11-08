@@ -32,3 +32,16 @@ def home_view(request):
         "monomer_images": images,
         "polymer_image": polymer_img_str
     })
+
+
+def lipases_view(request):
+    return render(request, "pages/lipases.html", {})
+
+def hydrolases_view(request):
+    return render(request, "pages/hydrolases.html", {})
+
+def transferases_view(request):
+    return render(request, "pages/transferases.html", {})
+
+def oxidoreductases_view(request):
+    return render(request, "pages/oxidoreductases.html", {})

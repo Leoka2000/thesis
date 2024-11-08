@@ -21,6 +21,10 @@ from . import views
 
 urlpatterns = [
     path('', views.home_view, name='home'),
+    path('lipases', views.lipases_view, name='lipases'),
+    path('hydrolases', views.hydrolases_view, name='hydrolases'),
+    path('transferases', views.transferases_view, name='transferases'),
+    path('oxidoreductases', views.oxidoreductases_view, name='oxidoreductases'),
     path('admin/', admin.site.urls),
 ]
 
