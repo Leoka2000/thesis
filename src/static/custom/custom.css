@@ -1,3 +1,6 @@
-h1 {
-    color: red
+body {
+    font-family: "Nunito", sans-serif!important;
+    font-optical-sizing: auto;
+   
+    font-style: normal;
 }

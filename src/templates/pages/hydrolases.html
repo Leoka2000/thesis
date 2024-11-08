@@ -1,12 +1,26 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="antialiased">
+  <div class="antialiased">
     {% include 'pages/widgets/navbar.html' %}
     {% include 'pages/widgets/sidebar.html' %}
 
-    <main class="h-auto p-4 pt-20 md:ml-64">
-  hydrolases
+    <main class="h-auto p-4 text-gray-900 pt-20 md:ml-64">
+      <h1 class="text-2xl">Examples microbial hydrolase enzymes that have been shown to digest PET-polylactic acid (PLA) under anaerobic or aerobic conditions.</h1>
+      <div class="flex gap-2 justify-center mt-5">
+      
+        {% include 'pages/widgets/hydrolase_widgets/pet_modal.html' %}
+     
+        {% include 'pages/widgets/hydrolase_widgets/pet_polymer_modal.html' %}
+  
+
+      </div>
+      <div class="mt-10 flex justify-center items-center flex-col text-center">
+        <p class="max-w-96">Example of bioconversion of PET-PLA degradation monomers to polyhydroxyalkanoate biopolymers by Pseudomonas and Halomonas strains addressed in detail.</p>
+
+        {% include 'pages/widgets/hydrolase_widgets/bioconversion_tabs.html' %}
+      </div>
+
     </main>
-</div>
+  </div>
 {% endblock %}
