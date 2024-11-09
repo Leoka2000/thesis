@@ -38,11 +38,6 @@ def lipases_view(request):
     return render(request, "pages/lipases.html", {})
 
 
-from rdkit import Chem
-from rdkit.Chem import Draw
-from io import BytesIO
-import base64
-
 def hydrolases_view(request):
     # Define the SMILES strings
     pet_monomer_smiles = 'O=C(OCC)C1=CC=CC=C1C(=O)OCC'
