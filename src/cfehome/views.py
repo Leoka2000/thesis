@@ -37,13 +37,21 @@ def home_view(request):
 def lipases_view(request):
     return render(request, "pages/lipases.html", {})
 
+
+from rdkit import Chem
+from rdkit.Chem import Draw
+from io import BytesIO
+import base64
+
 def hydrolases_view(request):
     # Define the SMILES strings
     pet_monomer_smiles = 'O=C(OCC)C1=CC=CC=C1C(=O)OCC'
     pet_polymer_smiles = 'O=C(OCC)C1=CC=CC=C1C(=O)OCCC(=O)C2=CC=CC=C2C(=O)OCCC(=O)C3=CC=CC=C3C(=O)OCC'
     vanillin_smiles = 'COC1=CC=C(C=C1)C=O'
+    cyclic_acetal_smiles = 'O1CCOC1'
+    propadienol_smiles = 'C=CCO'  # SMILES for 1,3-propadienol
 
-    # Generate and encode the image for the PET monomer
+    # Generate the images throughtb the .Chem AND BytesIO
     pet_monomer = Chem.MolFromSmiles(pet_monomer_smiles)
     buffer = BytesIO()
     pet_image = Draw.MolToImage(pet_monomer, size=(200, 200))
@@ -57,18 +65,35 @@ def hydrolases_view(request):
     pet_polymer_image.save(buffer, format="PNG")
     pet_polymer_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
-    # Generate and encode the image for Vanillin
+    # # Generate the images throughtb the .Chem AND BytesIOfor Vanillin
     vanillin_molecule = Chem.MolFromSmiles(vanillin_smiles)
     buffer = BytesIO()
     vanillin_image = Draw.MolToImage(vanillin_molecule, size=(200, 200))
     vanillin_image.save(buffer, format="PNG")
     vanillin_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
+    # # Generate the images throughtb the .Chem AND BytesIO Cyclic Acetal
+    cyclic_acetal_molecule = Chem.MolFromSmiles(cyclic_acetal_smiles)
+    buffer = BytesIO()
+    cyclic_acetal_image = Draw.MolToImage(cyclic_acetal_molecule, size=(200, 200))
+    cyclic_acetal_image.save(buffer, format="PNG")
+    cyclic_acetal_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+    #  # Generate the images throughtb the .Chem AND BytesIO1,3-Propadienol
+    propadienol_molecule = Chem.MolFromSmiles(propadienol_smiles)
+    buffer = BytesIO()
+    propadienol_image = Draw.MolToImage(propadienol_molecule, size=(200, 200))
+    propadienol_image.save(buffer, format="PNG")
+    propadienol_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
     return render(request, "pages/hydrolases.html", {
         "pet_image": pet_img_str,
         "pet_polymer_image": pet_polymer_img_str,
-        "vanillin_image": vanillin_img_str
+        "vanillin_image": vanillin_img_str,
+        "cyclic_acetal_image": cyclic_acetal_img_str,
+        "propadienol_image": propadienol_img_str
     })
+
 
 def transferases_view(request):
     return render(request, "pages/transferases.html", {})
