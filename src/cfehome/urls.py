@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path
 
 from . import views
+from . import views_oxidoreductases
 
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('lipases', views.lipases_view, name='lipases'),
     path('hydrolases', views.hydrolases_view, name='hydrolases'),
     path('transferases', views.transferases_view, name='transferases'),
-    path('oxidoreductases', views.oxidoreductases_view, name='oxidoreductases'),
+    path('oxidoreductases', views_oxidoreductases.oxidoreductases_view, name='oxidoreductases'),
     path('admin/', admin.site.urls),
 ]
 

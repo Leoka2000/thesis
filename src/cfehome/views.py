@@ -92,6 +92,3 @@ def hydrolases_view(request):
 
 def transferases_view(request):
     return render(request, "pages/transferases.html", {})
-
-def oxidoreductases_view(request):
-    return render(request, "pages/oxidoreductases.html", {})
