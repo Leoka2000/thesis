@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from rdkit import Chem
 from rdkit.Chem import Draw
@@ -6,25 +5,43 @@ import base64
 from io import BytesIO
 
 def oxidoreductases_view(request):
-    # Define reagents and products as SMILES
-    reagents_smiles = ["C1=CC(=CC=C1O)O", "O=O"]  # 4-benzenediol (1,2-benzenediol) and O2
-    products_smiles = ["C1=CC(=CC=C1[O])O", "O"]  # benzosemiquinone and water
+    # Define the SMILES representations for reagents and products
+    reagents_smiles = ["C1=CC(=CC=C1O)O", "O=O"]  # 4-benzenediol (1,2-benzenediol) and O₂
+    products_smiles = ["C1=CC(=CC=C1[O])O", "O"]   # Benzosemiquinone and H₂O
+    
+    # Set default for no reaction available
+    reaction_available = False
+    reagents_images = []
+    products_images = []
 
-    # Generate molecule images and convert them to base64
-    def smiles_to_base64(smiles):
-        mol = Chem.MolFromSmiles(smiles)
-        img = Draw.MolToImage(mol, size=(300, 300))
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        return base64.b64encode(buffered.getvalue()).decode("utf-8")
+    # Check if 'specific_enzyme' and 'chemical_group' are in request GET parameters
+    selected_enzyme = request.GET.get('specific_enzyme', '').lower()
+    selected_chemical = request.GET.get('chemical_group', '').lower()
+    
+    # Check for the specific enzyme and chemical group combination
+    if selected_enzyme == "laccase" and selected_chemical == "carbonyl":
+        reaction_available = True
+        # Generate images for reagents and products
+        for smi in reagents_smiles:
+            mol = Chem.MolFromSmiles(smi)
+            img = Draw.MolToImage(mol)
+            buffer = BytesIO()
+            img.save(buffer, format="PNG")
+            encoded_image = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            reagents_images.append(encoded_image)
 
-    # Convert reagents and products to base64 images
-    reagents_images = [smiles_to_base64(smiles) for smiles in reagents_smiles]
-    products_images = [smiles_to_base64(smiles) for smiles in products_smiles]
+        for smi in products_smiles:
+            mol = Chem.MolFromSmiles(smi)
+            img = Draw.MolToImage(mol)
+            buffer = BytesIO()
+            img.save(buffer, format="PNG")
+            encoded_image = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            products_images.append(encoded_image)
 
-    # Pass images to the template
     context = {
+        "reaction_available": reaction_available,
         "reagents_images": reagents_images,
         "products_images": products_images,
     }
+    
     return render(request, "pages/oxidoreductases.html", context)
