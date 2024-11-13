@@ -11,8 +11,9 @@
           <label for="specific_enzyme" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an enzyme</label>
           <select id="specific_enzyme" name="specific_enzyme" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected value="laccase">laccase</option>
-            <option value="maganese peroxidade">maganese peroxidase</option>
-            <option value="lignin peroxidase">lignin peroxidase</option>
+            <option value="maganese_peroxidade">maganese peroxidase</option>
+            <option value="lignin_peroxidase">lignin peroxidase</option>
+            <option value="versatile_peroxidase">versatile peroxidase</option>
           </select>
           <br />
           <label for="chemical_group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select chemical group to add</label>
@@ -29,21 +30,20 @@
       </div>
 
       <div id="reactionContent">
-        <h1>Oxidoreductase Reaction</h1>
+  
         
         {% if reaction_available %}
-          <h2>Reaction: 4 Benzenediol + O₂ → 4 Benzosemiquinone + 2 H₂O</h2>
-          <h3>Reagents:</h3>
+         
           {% for img in reagents_images %}
             <div class="max-w-sm bg-white border border-gray-50 m-2 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="#" class="w-full flex justify-center m-3 items-center my-10"><img src="data:image/png;base64,{{ img }}" alt="Reagent Image" class="shadow-md border border-gray-50 rounded-xl" /></a>
+              <a href="#" class="w-full flex justify-center items-center my-10"><img src="data:image/png;base64,{{ img }}" alt="Reagent Image" class="shadow-md border w-40 border-gray-50 rounded-xl" /></a>
             </div>
           {% endfor %}
           
           <h3>Products:</h3>
           {% for img in products_images %}
             <div class="max-w-sm bg-white border m-2 border-gray-50 rounded-xl shadow-md dark:bg-gray-800 dark:border-gray-700">
-              <a href="#" class="w-full flex justify-center m-3 my-10 items-center"><img src="data:image/png;base64,{{ img }}" alt="Product Image" class="shadow-md border border-gray-50 rounded-xl" /></a>
+              <a href="#" class="w-full flex justify-center my-10 items-center"><img src="data:image/png;base64,{{ img }}" alt="Product Image" class="shadow-md border w-40 border-gray-50 rounded-xl" /></a>
             </div>
           {% endfor %}
         {% else %}
