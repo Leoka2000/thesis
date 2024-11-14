@@ -8,19 +8,53 @@
     <main class="h-auto p-4 text-gray-900 pt-20 md:ml-64">
       <h1 class="text-2xl">Examples microbial hydrolase enzymes that have been shown to digest PET-polylactic acid (PLA) under anaerobic or aerobic conditions.</h1>
       <div class="flex gap-2 justify-center mt-5">
-      
         {% include 'pages/widgets/hydrolase_widgets/pet_modal.html' %}
-     
-        {% include 'pages/widgets/hydrolase_widgets/pet_polymer_modal.html' %}
-  
 
+        {% include 'pages/widgets/hydrolase_widgets/pet_polymer_modal.html' %}
       </div>
       <div class="mt-10 flex justify-center items-center flex-col text-center">
         <p class="max-w-96">Example of bioconversion of PET-PLA degradation monomers to polyhydroxyalkanoate biopolymers by Pseudomonas and Halomonas strains addressed in detail.</p>
 
         {% include 'pages/widgets/hydrolase_widgets/bioconversion_tabs.html' %}
       </div>
+      <div class="flex justify-center p-10 items-center">
+        <div class="flex items-center gap-4">
+          <!-- PET polymer image -->
+          <a href="#" class="bg-white border border-gray-50 rounded-xl shadow h-auto text-center flex-col justify-center items-center"><img src="data:image/png;base64,{{ pet_polymer_image }}" alt="Product Image" class="w-60 rounded-xl" /><p class="pb-2 text-gray-600 -mt-4">PET polymer<p></a>
 
+          <!-- Arrow for PET polymer -->
+          <div class="flex items-center">
+            <svg class="w-10 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+            </svg>
+          </div>
+
+          <!-- PET monomer image -->
+          <a href="#" class="bg-white border border-gray-50 rounded-xl shadow h-auto text-center flex-col justify-center items-center"><img src="data:image/png;base64,{{ pet_image }}" alt="Product Image" class="w-60 rounded-xl" /><p class="pb-2 text-gray-600 -mt-6">PET monomer<p></a>
+
+          <!-- Arrow for PET monomer -->
+          <div class="flex items-center">
+            <svg class="w-10 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+            </svg>
+          </div>
+
+          <!-- Selected value-added molecule image (if exists) -->
+          {% if added_molecule_image %}
+            <a href="#" class="bg-white border border-gray-50 rounded-xl shadow h-auto text-center flex-col justify-center items-center"><img src="data:image/png;base64,{{ added_molecule_image }}" alt="Product Image" class="w-60 rounded-xl" />  <p class="pb-2 text-gray-600 -mt-4">
+              {% if selected_molecule == 'vanillin' %}
+                Vanillin
+              {% elif selected_molecule == '1_3_propadienol' %}
+                1,3-Propadienol
+              {% elif selected_molecule == 'cyclic_acetal' %}
+                Cyclic Acetal
+              {% endif %}
+            </p></a>
+
+            <!-- Arrow for added molecule -->
+          {% endif %}
+        </div>
+      </div>
     </main>
   </div>
 {% endblock %}

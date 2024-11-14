@@ -19,10 +19,11 @@ from django.urls import path
 
 from . import views
 from . import views_oxidoreductases
+from . import views_lipases
 
 urlpatterns = [
     path('', views.home_view, name='home'),
-    path('lipases', views.lipases_view, name='lipases'),
+    path('lipases', views_lipases.lipases_view, name='lipases'),
     path('hydrolases', views.hydrolases_view, name='hydrolases'),
     path('transferases', views.transferases_view, name='transferases'),
     path('oxidoreductases', views_oxidoreductases.oxidoreductases_view, name='oxidoreductases'),

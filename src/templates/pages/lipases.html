@@ -6,7 +6,133 @@
     {% include 'pages/widgets/sidebar.html' %}
 
     <main class="h-auto p-4 pt-20 md:ml-64">
-   lipases
+        <div class="w-full flex justify-center my-8">
+            <form id="reactionForm" class="max-w-md w-full rounded-lg  border-2 border-neutral-100 shadow-sm p-4" method="get" action="{% url 'oxidoreductases' %}">
+              <label for="specific_enzyme_source" class="block mb-2 text-sm  font-medium text-gray-600 dark:text-white">Select an enzyme source</label>
+              <select id="specific_enzyme_source" name="specific_enzyme_source" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option  selected  value="Penicillium_simplicissimum">Penicillium simplicissimum</option>
+                <option value="yarrowia_lipolytica_IMUFRJ50682" class="italic">Yarrowia lipolytica IMUFRJ50682</option>
+                <option value="penicillium_roqueforti">Penicillium roqueforti</option>
+                <option value="aspergillus_niger">Aspergillus niger</option>
+                <option value="arbuscular_mycorrhizal_fungi">Arbuscular mycorrhizal fungi (AMF)</option>
+                <option value="agaricus_bisporus">Agaricus bisporus</option>
+                <option value="acremonium_implicatum">Acremonium implicatum</option>
+                <option value="chaetomium_spp">Chaetomium spp.</option>
+                <option value="eupenicillium_spp">Eupenicillium spp.</option>
+                <option value="fusarium_moniliforme_paecilomyces_sp">Fusarium moniliforme, Paecilomyces sp.</option>
+                <option value="pestalotiopsis_spp">Pestalotiopsis spp.</option>
+                <option value="daedalea_quercina">Daedalea quercina</option>
+                <option value="penicillium_spp">Penicillium spp.</option>
+                <option value="talaromyces_spp">Talaromyces spp.</option>
+                <option value="beauveria_bassiana">Beauveria bassiana</option>
+                <option value="chaetomium_globosum">Chaetomium globosum</option>
+                <option value="alternaria_spp">Alternaria spp.</option>
+                <option value="leptosphaeria_maculans">Leptosphaeria maculans</option>
+                <option value="colletotrichum_falcatum">Colletotrichum falcatum</option>
+                <option value="phoma_spp">Phoma spp.</option>
+                <option value="meyerozyma_guilliermondii">Meyerozyma guilliermondii</option>
+                <option value="wickerhamomyces_anomalus">Wickerhamomyces anomalus</option>
+                <option value="kluyveromyces_marxianus">Kluyveromyces marxianus</option>
+                <option value="saccharomyces_cerevisiae">Saccharomyces cerevisiae</option>
+                <option value="pichia_pastoris">Pichia pastoris</option>
+                <option value="rhodotorula_glutinis">Rhodotorula glutinis</option>
+                <option value="trichosporon_spp">Trichosporon spp.</option>
+                <option value="brettanomyces_spp">Brettanomyces spp.</option>
+                <option value="cryptococcus_neoformans">Cryptococcus neoformans</option>
+                <option value="geotrichum_candidum">Geotrichum candidum</option>
+                <option value="hansenula_anomala">Hansenula anomala</option>
+                <option value="enterobacter_cloacae">Enterobacter cloacae</option>
+                <option value="serratia_nematodiphilia">Serratia nematodiphilia</option>
+                <option value="exiguobacterium_sp_strain_AMBL_20">Exiguobacterium sp. strain (AMBL-20)</option>
+                <option value="escherichia_coli">Escherichia coli</option>
+                <option value="acidithiobacillus_ferrooxidans">Acidithiobacillus ferrooxidans</option>
+                <option value="leptospirillum_spp">Leptospirillum spp.</option>
+                <option value="roseobacter_spp">Roseobacter spp.</option>
+                <option value="bacillus_spp">Bacillus spp.</option>
+                <option value="bacillus_amyloliquefaciens">Bacillus amyloliquefaciens</option>
+                <option value="anoxybacillus_gonensis_UF7">Anoxybacillus gonensis UF7</option>
+              </select>
+              <br />
+              <label for="isolated_from" class="block mb-2 text-sm font-medium text-gray-600 dark:text-white">Select isolation source</label>
+<select id="isolated_from" name="isolated_from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected value="food_samples">Food samples</option>
+    <option value="estuary_guanabara_bay">Estuary in Guanabara Bay</option>
+    <option value="organic_debris">Organic debris</option>
+    <option value="soil_samples">Soil samples</option>
+    <option value="wood_rotting_samples">Wood-rotting samples</option>
+    <option value="panax_notoginseng">Buds of Panax notoginseng</option>
+    <option value="marine_green_alga">Marine green alga</option>
+    <option value="soft_coral">Soft coral-derived fungus</option>
+    <option value="root_tip_plantain">Root tip of plantain</option>
+    <option value="chinese_mangrove">Chinese mangrove plant Rhizophora stylosa</option>
+    <option value="soil_water_samples">Soil and water samples</option>
+    <option value="air_samples">Air samples</option>
+    <option value="catharanthus_roseus">Catharanthus roseus</option>
+    <option value="canola_rapeseed">Leaf of canola/rapeseed seedlings</option>
+    <option value="sugarcane">Sugarcane</option>
+    <option value="crop_plants">Crop plants</option>
+    <option value="cheese_whey">Cheese whey</option>
+    <option value="grapes_wines">Grapes and wines</option>
+    <option value="traditional_dairy">Traditional dairy products</option>
+    <option value="organic_materials">Organic materials</option>
+    <option value="chestnut_tree">Exudates of a chestnut tree</option>
+    <option value="antarctica">Isolated in Antarctica</option>
+    <option value="lignocellulosic_biomass">Lignocellulosic biomass</option>
+    <option value="brewing_products">Brewing products</option>
+    <option value="bird_samples">Bird samples</option>
+    <option value="tibet_kefir_milk">Tibet kefir milk</option>
+    <option value="fermented_soybean">Fermented soybean</option>
+    <option value="acidic_conditions">Acidic conditions</option>
+    <option value="paper_pulp_effluent">Paper and pulp effluent</option>
+    <option value="glacial_water">Glacial water samples</option>
+    <option value="acidic_environments">Acidic environments</option>
+    <option value="marine_environment">Marine environment</option>
+    <option value="abattoir_soil">Abattoir soil</option>
+    <option value="environmental_samples">Environmental samples</option>
+    <option value="hot_spring">Isolated from a hot spring</option>
+</select>
+              <br />
+              
+             
+           
+              <button type="button" onclick="checkReaction()" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-200 rounded-md bg-neutral-700 hover:bg-neutral-900 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 focus:shadow-outline focus:outline-none">
+                Show reaction
+            </button>
+            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="px-2 pt-6 pb-2 mx-auto flex justify-center items-center ">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 rounded-lg shadow text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400
+                            {% if message.tags == 'success' %} border-green-500 text-green-600 bg-green-50 dark:text-green-200 {% endif %}
+                            {% if message.tags == 'error' %} border-red-500 text-red-600  bg-red-50 dark:bg-red-800 dark:text-red-200 {% endif %}
+                        " role="alert">
+                            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg">
+                                <!-- Icons based on message type -->
+                                {% if message.tags == 'success' %}
+                                <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500  bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                    </svg>
+                                    <span class="sr-only">Check icon</span>
+                                </div>
+                                {% elif message.tags == 'error' %}
+                                <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-50 rounded-lg dark:bg-red-800 dark:text-red-200">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+                                    </svg>
+                                    <span class="sr-only">Error icon</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="ml-3 text-xsm font-normal">{{ message }}</div>
+                            <button type="button" @click="show = false" class="ml-auto  text-gray-400 hover:text-gray-900 rounded-lg p-1.5 dark:text-gray-500 dark:hover:text-white" aria-label="Close">
+                                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/></svg>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            </form>
+          </div>
     </main>
 </div>
 {% endblock %}

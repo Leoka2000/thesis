@@ -3,7 +3,7 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 import base64
 from io import BytesIO
-
+from django.contrib import messages
 
 def oxidoreductases_view(request):
     # Default SMILES for an existing reaction
@@ -22,7 +22,7 @@ def oxidoreductases_view(request):
         "O"                            # Water (H₂O)
     ]
     
-    # New SMILES for versatile peroxidase reaction
+    # SMILES for versatile peroxidase reaction
     versatile_reaction_reagents = [
         "COC1=C(C=C(C=C1)OC)CC(CO)OC1=CC=CC=C1OC",  # 1-(3,4-dimethoxyphenyl)-2-(2-methoxyphenoxy)propane-1,3-diol
         "OO"  # Hydrogen peroxide (H₂O₂)
@@ -32,6 +32,17 @@ def oxidoreductases_view(request):
         "COC1=CC=CC=C1O",              # 2-methoxyphenol
         "O=CCO",                       # Glycolaldehyde
         "O"                            # Water (H₂O)
+    ]
+    
+    # New SMILES for manganese peroxidase reaction
+    manganese_reaction_reagents = [
+        "[Mn+2]",      # Mn²⁺
+        "[H+].[H+]",   # 2H⁺
+        "OO"           # H₂O₂ (hydrogen peroxide)
+    ]
+    manganese_reaction_products = [
+        "[Mn+3]",      # Mn³⁺
+        "O.O"          # 2H₂O (water molecules)
     ]
 
     # Set default for no reaction available
@@ -70,7 +81,15 @@ def oxidoreductases_view(request):
         reaction_available = True
         reagents_images = generate_images(versatile_reaction_reagents)
         products_images = generate_images(versatile_reaction_products)
-
+        
+    elif selected_enzyme == "maganese_peroxidade" and selected_chemical == "carbonyl":  # Added new condition for manganese peroxidase
+        reaction_available = True
+        reagents_images = generate_images(manganese_reaction_reagents)
+        products_images = generate_images(manganese_reaction_products)
+    if reaction_available:
+        messages.success(request, "Reaction found successfully!")
+    else:
+        messages.error(request, "Reaction not available for selected enzyme or chemical group.")
     context = {
         "reaction_available": reaction_available,
         "reagents_images": reagents_images,

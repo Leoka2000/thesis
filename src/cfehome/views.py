@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from rdkit import Chem
 from rdkit.Chem import Draw
 import base64
@@ -34,9 +35,6 @@ def home_view(request):
     })
 
 
-def lipases_view(request):
-    return render(request, "pages/lipases.html", {})
-
 
 def hydrolases_view(request):
     # Define the SMILES strings
@@ -46,47 +44,39 @@ def hydrolases_view(request):
     cyclic_acetal_smiles = 'O1CCOC1'
     propadienol_smiles = 'C=CCO'  # SMILES for 1,3-propadienol
 
-    # Generate the images throughtb the .Chem AND BytesIO
-    pet_monomer = Chem.MolFromSmiles(pet_monomer_smiles)
-    buffer = BytesIO()
-    pet_image = Draw.MolToImage(pet_monomer, size=(200, 200))
-    pet_image.save(buffer, format="PNG")
-    pet_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    # Generate the images for PET polymer and PET monomer
+    def generate_image(smiles, size=(200, 200)):
+        mol = Chem.MolFromSmiles(smiles)
+        buffer = BytesIO()
+        image = Draw.MolToImage(mol, size=size)
+        image.save(buffer, format="PNG")
+        return base64.b64encode(buffer.getvalue()).decode("utf-8")
 
-    # Generate and encode the image for the PET polymer (4 monomers)
-    pet_polymer = Chem.MolFromSmiles(pet_polymer_smiles)
-    buffer = BytesIO()
-    pet_polymer_image = Draw.MolToImage(pet_polymer, size=(400, 400))
-    pet_polymer_image.save(buffer, format="PNG")
-    pet_polymer_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    pet_image = generate_image(pet_monomer_smiles, size=(200, 200))
+    pet_polymer_image = generate_image(pet_polymer_smiles, size=(400, 400))
 
-    # # Generate the images throughtb the .Chem AND BytesIOfor Vanillin
-    vanillin_molecule = Chem.MolFromSmiles(vanillin_smiles)
-    buffer = BytesIO()
-    vanillin_image = Draw.MolToImage(vanillin_molecule, size=(200, 200))
-    vanillin_image.save(buffer, format="PNG")
-    vanillin_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    # Determine the molecule to display based on selected value in form
+    value_added_molecule = request.GET.get('added_value_molecule', 'vanillin')
+    if value_added_molecule == 'vanillin':
+        added_molecule_image = generate_image(vanillin_smiles)
+    elif value_added_molecule == '1_3_propadienol':
+        added_molecule_image = generate_image(propadienol_smiles)
+    elif value_added_molecule == 'cyclic_acetal':
+        added_molecule_image = generate_image(cyclic_acetal_smiles)
+    else:
+        added_molecule_image = None
 
-    # # Generate the images throughtb the .Chem AND BytesIO Cyclic Acetal
-    cyclic_acetal_molecule = Chem.MolFromSmiles(cyclic_acetal_smiles)
-    buffer = BytesIO()
-    cyclic_acetal_image = Draw.MolToImage(cyclic_acetal_molecule, size=(200, 200))
-    cyclic_acetal_image.save(buffer, format="PNG")
-    cyclic_acetal_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
-
-    #  # Generate the images throughtb the .Chem AND BytesIO1,3-Propadienol
-    propadienol_molecule = Chem.MolFromSmiles(propadienol_smiles)
-    buffer = BytesIO()
-    propadienol_image = Draw.MolToImage(propadienol_molecule, size=(200, 200))
-    propadienol_image.save(buffer, format="PNG")
-    propadienol_img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    # Add a success or error message
+    if added_molecule_image:
+        messages.success(request, f'Successfully found the molecule: {value_added_molecule.replace("_", " ").title()}')
+    else:
+        messages.error(request, 'No matching molecule found for the selected value.')
 
     return render(request, "pages/hydrolases.html", {
-        "pet_image": pet_img_str,
-        "pet_polymer_image": pet_polymer_img_str,
-        "vanillin_image": vanillin_img_str,
-        "cyclic_acetal_image": cyclic_acetal_img_str,
-        "propadienol_image": propadienol_img_str
+        "pet_image": pet_image,
+        "pet_polymer_image": pet_polymer_image,
+        "added_molecule_image": added_molecule_image,
+        "selected_molecule": value_added_molecule
     })
 
 
