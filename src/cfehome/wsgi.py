@@ -14,3 +14,10 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cfehome.settings')
 
 application = get_wsgi_application()
+
+
+
+#products whole molecule smile: CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC
+##CCCCCCCCCCCCCCCC(=O) represents the palmitoyl group.
+#COC(=O)CCCCCCCCCCCCCCC represents the stearoyl group.
+#COC(=O)CCCCCCCC=CCCCCC represents the oleoyl group.

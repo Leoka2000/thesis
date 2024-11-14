@@ -1,50 +1,65 @@
 # views.py
 from django.shortcuts import render
+from django.contrib import messages
 from rdkit import Chem
 from rdkit.Chem import Draw
 import base64
 from io import BytesIO
 
-def generate_molecule_image(smiles, size=(300, 300)):
-    try:
-        # Remove any whitespace and newlines from SMILES
-        smiles = smiles.strip()
-        mol = Chem.MolFromSmiles(smiles)
-        if mol is None:
-            return None
-        
-        # Generate 2D depiction
-        img = Draw.MolToImage(mol, size=size)
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        return base64.b64encode(buffered.getvalue()).decode()
-    except Exception as e:
-        print(f"Error generating molecule image: {e}")
-        return None
-
 def lipases_view(request):
-    # Simplified SMILES representations for the molecules
-    # These are simplified versions that RDKit can handle better
-    palm_oil = "CCCCCCCCCCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCCCCCCCCCC)OC(=O)CCCCCCCCCCCCCCCCC"
-    stearic_acid = "CCCCCCCCCCCCCCCCCC(=O)O"
-    cbs_product = "CCCCCCCCCCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCCCCCCCCCC)OC(=O)CCCCCCCCCCCCCCCCC"
-    distearyl_ether = "CCCCCCCCCCCCCCCCCCOCCCCCCCCCCCCCCCCCC"
-
-    # Generate images with error handling
-    context = {}
-    molecules = {
-        'palm_oil_img': palm_oil,
-        'stearic_acid_img': stearic_acid,
-        'cbs_img': cbs_product,
-        'distearyl_img': distearyl_ether
+    # Define SMILES strings for reagents and products
+    reagents = {
+        "POP (1,3-Dipalmitoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
+        "Stearic Acid": "CCCCCCCCCCCCCCC(=O)O"
+    }
+    products = {
+        "P-OSt (1-palmitoyl-3-stearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
+        "St-OSt (1,3-distearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC"
     }
 
-    for key, smiles in molecules.items():
-        img = generate_molecule_image(smiles)
-        if img:
-            context[key] = img
-        else:
-            context[key] = ''  # Provide empty string if molecule generation fails
-            print(f"Failed to generate image for {key}")
+#smile triolein O=C(OCC(OC(=O)CCCCCCC\C=C/CCCCCCCC)COC(=O)CCCCCCC\C=C/CCCCCCCC)CCCCCCC\C=C/CCCCCCCC
+# Oleic acid smile CCCCCCCC/C=C\CCCCCCCC(=O)O
+    def process_molecules(molecule_dict):
+        processed_data = {}
+        for name, smiles in molecule_dict.items():
+            molecule = Chem.MolFromSmiles(smiles)
+            if molecule:
+                smiles_string = Chem.MolToSmiles(molecule)
+                img = Draw.MolToImage(molecule, size=(300, 300))
+                buffered = BytesIO()
+                img.save(buffered, format="PNG")
+                img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+                processed_data[name] = {
+                    "smiles": smiles_string,
+                    "image_base64": img_base64
+                }
+        return processed_data
 
-    return render(request, 'pages/lipases.html', context)
+    # Default empty data for rendering
+    reagents_data = {}
+    products_data = {}
+
+    # Process request parameters if they exist
+    if request.method == "GET":
+        palm_oil = request.GET.get("palm_oil_mildfraction")
+        organic_acid = request.GET.get("organic_fatty_acid")
+        catalyser = request.GET.get("catalyser")
+
+        # Check if selected values match the expected combination
+        if (
+            palm_oil == "palm_oil_mildfraction"
+            and organic_acid == "stearic_acid"
+            and catalyser == "1_3_specific_lipase"
+        ):
+            # If the selected values match, process molecules and show success message
+            reagents_data = process_molecules(reagents)
+            products_data = process_molecules(products)
+            messages.success(request, "Reaction successful! The reagents and products are displayed.")
+        else:
+            # If the selected values don't match, add an error message
+            messages.error(request, "The selected options do not match the expected reaction.")
+
+    return render(request, 'pages/lipases.html', {
+        "reagents_data": reagents_data,
+        "products_data": products_data
+    })
