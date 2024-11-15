@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import render
 from django.contrib import messages
 from rdkit import Chem
@@ -10,15 +9,17 @@ def lipases_view(request):
     # Define SMILES strings for reagents and products
     reagents = {
         "POP (1,3-Dipalmitoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
-        "Stearic Acid": "CCCCCCCCCCCCCCC(=O)O"
+        "Stearic Acid": "CCCCCCCCCCCCCCC(=O)O",
+        "Triolein": "O=C(OCC(OC(=O)CCCCCCC\\C=C/CCCCCCCC)COC(=O)CCCCCCC\\C=C/CCCCCCCC)CCCCCCC\\C=C/CCCCCCCC",
+        "Palm Top Oil": "CCCCCCCCCCCCCCCC(=O)O"
     }
     products = {
         "P-OSt (1-palmitoyl-3-stearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
-        "St-OSt (1,3-distearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC"
+        "St-OSt (1,3-distearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
+        "HMS": "C1C2(COP2O1)CSN",
+        "Product": "C(C1CP(F)O1)F"
     }
 
-#smile triolein O=C(OCC(OC(=O)CCCCCCC\C=C/CCCCCCCC)COC(=O)CCCCCCC\C=C/CCCCCCCC)CCCCCCC\C=C/CCCCCCCC
-# Oleic acid smile CCCCCCCC/C=C\CCCCCCCC(=O)O
     def process_molecules(molecule_dict):
         processed_data = {}
         for name, smiles in molecule_dict.items():
@@ -47,13 +48,21 @@ def lipases_view(request):
 
         # Check if selected values match the expected combination
         if (
-            palm_oil == "palm_oil_mildfraction"
-            and organic_acid == "stearic_acid"
+            palm_oil == "palm_top_oil"
+            and organic_acid == "triolein"
             and catalyser == "1_3_specific_lipase"
         ):
             # If the selected values match, process molecules and show success message
-            reagents_data = process_molecules(reagents)
-            products_data = process_molecules(products)
+            specific_reagents = {
+                "Palm Top Oil": reagents["Palm Top Oil"],
+                "Triolein": reagents["Triolein"]
+            }
+            specific_products = {
+                "HMS": products["HMS"],
+                "Product": products["Product"]
+            }
+            reagents_data = process_molecules(specific_reagents)
+            products_data = process_molecules(specific_products)
             messages.success(request, "Reaction successful! The reagents and products are displayed.")
         else:
             # If the selected values don't match, add an error message
