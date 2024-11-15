@@ -17,7 +17,7 @@ def lipases_view(request):
         "P-OSt (1-palmitoyl-3-stearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
         "St-OSt (1,3-distearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
         "HMS": "C1C2(COP2O1)CSN",
-        "Product": "C(C1CP(F)O1)F"
+        "Product": "C(C(COF)F)F"
     }
 
     def process_molecules(molecule_dict):
@@ -60,6 +60,24 @@ def lipases_view(request):
             specific_products = {
                 "HMS": products["HMS"],
                 "Product": products["Product"]
+            }
+            reagents_data = process_molecules(specific_reagents)
+            products_data = process_molecules(specific_products)
+            messages.success(request, "Reaction successful! The reagents and products are displayed.")
+
+        # New condition: Palm top oil + Oleic acid + 1,3 specific lipase
+        elif (
+            palm_oil == "palm_top_oil"
+            and organic_acid == "oleic_acid"
+            and catalyser == "1_3_specific_lipase"
+        ):
+            specific_reagents = {
+                "Palm Top Oil": reagents["Palm Top Oil"],
+                "Triolein": reagents["Triolein"]
+            }
+            specific_products = {
+                "C(C(COF)F)F": "C(C(COF)F)F",
+                "HMS": products["HMS"]
             }
             reagents_data = process_molecules(specific_reagents)
             products_data = process_molecules(specific_products)
