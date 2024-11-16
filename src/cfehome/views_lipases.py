@@ -1,3 +1,4 @@
+# views.py
 from django.shortcuts import render
 from django.contrib import messages
 from rdkit import Chem
@@ -8,17 +9,23 @@ from io import BytesIO
 def lipases_view(request):
     # Define SMILES strings for reagents and products
     reagents = {
-        "POP (1,3-Dipalmitoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
-        "Stearic Acid": "CCCCCCCCCCCCCCC(=O)O",
-        "Triolein": "O=C(OCC(OC(=O)CCCCCCC\\C=C/CCCCCCCC)COC(=O)CCCCCCC\\C=C/CCCCCCCC)CCCCCCC\\C=C/CCCCCCCC",
-        "Palm Top Oil": "CCCCCCCCCCCCCCCC(=O)O"
+        "POP (1,3-Dipalmitoyl-2-oleylglycerol)": "C(CCCCCCCCCCCCCCC)(=O)OCC(OCCCCCCCC\C=C/CCCCCCCC)COC(CCCCCCCCCCCCCCC)=O", ##helyes, forrás: https://www.antvaset.com/iupac-to-smiles 
+        "Stearic Acid": "C(CCCCCCCCCCCCCCCCC)(=O)O", ##helyes, forrás: https://pubchem.ncbi.nlm.nih.gov/compound/Stearic-Acid#section=InChI 
+
+        # "Triolein": "O=C(OCC(OC(=O)CCCCCCC\C=C/CCCCCCCC)COC(=O)CCCCCCC\C=C/CCCCCCCC)CCCCCCC\C=C/CCCCCCCC"
     }
     products = {
-        "P-OSt (1-palmitoyl-3-stearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
-        "St-OSt (1,3-distearoyl-2-oleylglycerol)": "CCCCCCCCCCCCCCC(=O)OC(COC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCC=CCCCCC",
-        "HMS": "C1C2(COP2O1)CSN",
-        "Product": "C(C(COF)F)F"
-    }
+        "P-OSt - CBS - (2-stearoyl-1,3-dihydroxypropane)": "C(CCCCCCCCCCCCCCCCC)(=O)OC(CO)CO", ##helyes, forrás: https://www.antvaset.com/iupac-to-smiles #CBS
+        "St-OSt (1,3-distearoyl-2-oleylglycerol)": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O",##helyes, forrás: https://www.antvaset.com/iupac-to-smiles 
+        "P-St-St": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O", # N SEI porque mas a o P-St-St tem o mesmo smile que o St-x
+        "P-St-P": "C(CCCCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCC)=O)COC(CCCCCCCCCCCCCCC)=O"
+        # PARA P-St-St IUPAC name: 2,3-bis(octadecanoyloxy)propyl hexadecanoate
+#Molecular Formula: C55H106O6
+
+    } 
+
+
+
 
     def process_molecules(molecule_dict):
         processed_data = {}
@@ -48,39 +55,13 @@ def lipases_view(request):
 
         # Check if selected values match the expected combination
         if (
-            palm_oil == "palm_top_oil"
-            and organic_acid == "triolein"
+            palm_oil == "palm_oil_mildfraction"
+            and organic_acid == "stearic_acid"
             and catalyser == "1_3_specific_lipase"
         ):
             # If the selected values match, process molecules and show success message
-            specific_reagents = {
-                "Palm Top Oil": reagents["Palm Top Oil"],
-                "Triolein": reagents["Triolein"]
-            }
-            specific_products = {
-                "HMS": products["HMS"],
-                "Product": products["Product"]
-            }
-            reagents_data = process_molecules(specific_reagents)
-            products_data = process_molecules(specific_products)
-            messages.success(request, "Reaction successful! The reagents and products are displayed.")
-
-        # New condition: Palm top oil + Oleic acid + 1,3 specific lipase
-        elif (
-            palm_oil == "palm_top_oil"
-            and organic_acid == "oleic_acid"
-            and catalyser == "1_3_specific_lipase"
-        ):
-            specific_reagents = {
-                "Palm Top Oil": reagents["Palm Top Oil"],
-                "Triolein": reagents["Triolein"]
-            }
-            specific_products = {
-                "C(C(COF)F)F": "C(C(COF)F)F",
-                "HMS": products["HMS"]
-            }
-            reagents_data = process_molecules(specific_reagents)
-            products_data = process_molecules(specific_products)
+            reagents_data = process_molecules(reagents)
+            products_data = process_molecules(products)
             messages.success(request, "Reaction successful! The reagents and products are displayed.")
         else:
             # If the selected values don't match, add an error message
