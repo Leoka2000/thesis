@@ -31,7 +31,7 @@ def lipases_view(request):
 
     # HMS Triolein Reaction
     hms_triolein_reagents = {
-        "palm_top_fraction (tripalmitin)": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
+        "palm_top_fraction": "",
         "Triolein": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCC\C=C/CCCCCCCC)=O)OC(CCCCCCC\C=C/CCCCCCCC)=O",
     }
     hms_triolein_products = {
@@ -98,10 +98,11 @@ def lipases_view(request):
     #     #POP= palm oil mid fraction
     #     "POP Palm oil mid fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O", #iupac 2,3-bis(hexadecanoyloxy)propyl (Z)-octadec-9-enoate
     #     "Stearic Acid": "C(CCCCCCCCCCCCCCCCC)(=O)O", #IUPAC octadecanoic acid
-    #     "palm_top_fraction (tripalmitin)": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O", #IUPAC 2,3-bis(hexadecanoyloxy)propyl hexadecanoate
+    #     "palm_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O", #IUPAC Hexadecanoic acid
     #     #acima fiz qnd tava doente e arrumei
     #     "Triolein": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCC\C=C/CCCCCCCC)=O)OC(CCCCCCC\C=C/CCCCCCCC)=O", #IUPAC 2,3-bis((Z)-octadec-9-enoyloxy)propyl (Z)-octadec-9-enoate
-    #     "oleic-acid": "C(CCCCCCC\C=C/CCCCCCCC)(=O)O", #iupac (Z)-octadec-9-enoic acid
+    #     "tripalmitin_tryglyceryde_3_oxygens": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O", #iupac 2,3-bis(hexadecanoyloxy)propyl hexadecanoate
+    #     "simples_olete_acid": "C(CCCCCCC\C=C/CCCCCCCC)(=O)O" #(9Z)-octadec-9-enoic acid
     # }
     # products = {
     #     "P-OSt - CBS - (2-stearoyl-1,3-dihydroxypropane)": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(C(C)O)OC(CCCCCCCCCCCCCCCCC)=O", #IUPAC: 2-hydroxy-1-(octadecanoyloxy)propyl (Z)-octadec-9-enoate
@@ -113,4 +114,5 @@ def lipases_view(request):
     #     "HMS (O-P-O)": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\C=C/CCCCCCCC)=O)COC(CCCCCCC\C=C/CCCCCCCC)=O", #iupac 2-(hexadecanoyloxy)-1,3-bis((Z)-octadec-9-enoyloxy)propane
     #     "P-O-P": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC[C@@H](COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O", #IUPAC: (2R)-3-(hexadecanoyloxy)-2-(hexadecanoyloxy)propyl (9Z)-octadec-9-enoate
     #     "St-St-St": "C(CCCCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O"  #a trygliceride with three stereate group IUPAC: 2,3-bis(octadecanoyloxy)propyl octadecanoate
+
     # }
