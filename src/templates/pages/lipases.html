@@ -24,8 +24,6 @@
             {% endif %}
           </div>
           
-          <!-- its bad here, lets rename for just "palm oil fraction type" -->
-           {% comment %} arrumar depois o mildfraction para mid {% endcomment %}
           <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
           <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
             <option selected value="palm_oil_midfraction">Palm oil mid fraction</option>
@@ -36,6 +34,7 @@
           <label for="organic_fatty_acid" class="block mb-2 text-sm text-left font-medium text-gray-600 dark:text-white">Select the monomer</label>
           <select id="organic_fatty_acid" name="organic_fatty_acid" class="bg-gray-50 mb-4 border w-full border-gray-300 text-gray-900 text-sm rounded-lg">
             <option selected value="stearic_acid">Stearic acid</option>
+            <option value="stearic_acid_3st">Stearic acid with three stereate (St) groups</option>
             <option value="triolein">Triolein</option>
             <option value="oleic_acid">Oleic acid</option>
           </select>
