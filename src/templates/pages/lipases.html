@@ -20,14 +20,15 @@
                     <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/></svg>
                   </button>
                 </div>
-              {% endfor %} n_
+              {% endfor %} 
             {% endif %}
           </div>
           
           <!-- its bad here, lets rename for just "palm oil fraction type" -->
-          <label for="palm_oil_mildfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
-          <select id="palm_oil_mildfraction" name="palm_oil_mildfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
-            <option selected value="palm_oil_mildfraction">Palm oil mild fractions</option>
+           {% comment %} arrumar depois o mildfraction para mid {% endcomment %}
+          <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
+          <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
+            <option selected value="palm_oil_midfraction">Palm oil mid fraction</option>
             <option value="palm_top_oil">Palm top oil</option>
           </select>
           <br/>
