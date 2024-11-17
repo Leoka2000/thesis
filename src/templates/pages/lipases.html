@@ -12,7 +12,7 @@
           <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="px-2 pb-2 mx-auto flex justify-center items-center">
             {% if messages %}
               {% for message in messages %}
-                <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 rounded-lg shadow text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400
+                <div id="toast-warning"  class="flex items-center w-full max-w-xs p-4 rounded-lg shadow text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400
                     {% if message.tags == 'success' %} border-green-500 text-green-600 bg-green-50 dark:text-green-200 {% endif %}
                     {% if message.tags == 'error' %} border-red-500 text-red-600 bg-red-50 dark:bg-red-800 dark:text-red-200 {% endif %}" role="alert">
                   <div class="ml-3 text-sm font-normal">{{ message }}</div>
