@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="antialiased">
   {% include 'pages/widgets/navbar.html' %}
@@ -23,7 +23,12 @@
               {% endfor %} 
             {% endif %}
           </div>
-          
+          {% if show_reaction_image %}
+          <div class="mt-10 text-center">
+            <h2 class="text-lg font-semibold text-gray-700">Reaction Result</h2>
+            <img src="{% static 'img/palm_oil_topfraction_triolein.jpg' %}" alt="triolein_reaction" class="mt-4">
+          </div>
+        {% endif %}
           <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
           <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
             <option selected value="palm_oil_midfraction">Palm oil mid fraction</option>

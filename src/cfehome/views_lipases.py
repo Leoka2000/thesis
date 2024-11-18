@@ -6,6 +6,7 @@ import base64
 from io import BytesIO
 
 def lipases_view(request):
+    
     # Define SMILES strings for reagents and products (First reaction)
     reagents = {
         "POP Palm oil mid fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
@@ -31,7 +32,7 @@ def lipases_view(request):
 
     # HMS Triolein Reaction
     hms_triolein_reagents = {
-        "palm_top_fraction": "",
+        "palm_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
         "Triolein": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCC\C=C/CCCCCCCC)=O)OC(CCCCCCC\C=C/CCCCCCCC)=O",
     }
     hms_triolein_products = {
@@ -55,9 +56,10 @@ def lipases_view(request):
                 }
         return processed_data
 
-    # Default empty data for rendering
+    # creating the context yoo
     reagents_data = {}
     products_data = {}
+    show_reaction_image = False
 
     # Process request parameters if they exist
     if request.method == "GET":
@@ -69,7 +71,9 @@ def lipases_view(request):
             palm_oil == "palm_top_oil"
             and organic_acid == "triolein"
             and catalyser == "1_3_specific_lipase"
+            
         ):
+            show_reaction_image = True
             reagents_data = process_molecules(hms_triolein_reagents)
             products_data = process_molecules(hms_triolein_products)
             messages.success(request, "HMS-Triolein reaction successful! The reagents and products are displayed.")
@@ -89,7 +93,9 @@ def lipases_view(request):
     return render(request, 'pages/lipases.html', {
         "reagents_data": reagents_data,
         "products_data": products_data,
+        "show_reaction_image": show_reaction_image,
     })
+
 
 
 
