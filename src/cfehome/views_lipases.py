@@ -61,6 +61,7 @@ def lipases_view(request):
     products_data = {}
     show_reaction_image_top_oil_triolein = False
     show_reaction_image_midfraction_stearic_acid = False
+    #show_reaction_image_midfractiction_oleic_acid = False
     
 
     # Pprocess mages if get request s succcessfull
