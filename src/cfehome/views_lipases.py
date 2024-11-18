@@ -56,11 +56,12 @@ def lipases_view(request):
                 }
         return processed_data
 
-    # creating the context yoo
+    # creating the "state", that is conteyt thatb we will pass
     reagents_data = {}
     products_data = {}
     show_reaction_image_top_oil_triolein = False
     show_reaction_image_midfraction_stearic_acid = False
+    
 
     # Pprocess mages if get request s succcessfull
     if request.method == "GET":

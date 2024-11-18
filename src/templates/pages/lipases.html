@@ -45,29 +45,29 @@
         {% if show_reaction_image_midfraction_stearic_acid %}
           <div class="mt-10 text-center">
             <h2 class="text-lg font-semibold text-gray-700">Reaction Result</h2>
-            <img src="{% static 'img/palm_oil_topfraction_triolein.jpg' %}" alt="stearic_acid_reaction" class="my-4 p-2 rounded-md shadow-md">
+            <img src="{% static 'img/palm_oil_midfraction_st.jpg' %}" alt="stearic_acid_reaction" class="my-4 p-2 rounded-md shadow-md">
           </div>
         {% endif %}
-          <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
-          <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
-            <option selected value="palm_oil_midfraction">Palm oil mid fraction</option>
-            <option value="palm_top_oil">Palm top oil</option>
-          </select>
+        <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
+        <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
+          <option value="palm_oil_midfraction" {% if request.GET.palm_oil_midfraction == "palm_oil_midfraction" %}selected{% endif %}>Palm oil mid fraction</option>
+          <option value="palm_top_oil" {% if request.GET.palm_oil_midfraction == "palm_top_oil" %}selected{% endif %}>Palm top oil</option>
+        </select>
           <br/>
 
           <label for="organic_fatty_acid" class="block mb-2 text-sm text-left font-medium text-gray-600 dark:text-white">Select the monomer</label>
-          <select id="organic_fatty_acid" name="organic_fatty_acid" class="bg-gray-50 mb-4 border w-full border-gray-300 text-gray-900 text-sm rounded-lg">
-            <option selected value="stearic_acid">Stearic acid</option>
-            <option value="stearic_acid_3st">Stearic acid with three stereate (St) groups</option>
-            <option value="triolein">Triolein</option>
-            <option value="oleic_acid">Oleic acid</option>
-          </select>
+  <select id="organic_fatty_acid" name="organic_fatty_acid" class="bg-gray-50 mb-4 border w-full border-gray-300 text-gray-900 text-sm rounded-lg">
+    <option value="stearic_acid" {% if request.GET.organic_fatty_acid == "stearic_acid" %}selected{% endif %}>Stearic acid</option>
+    <option value="stearic_acid_3st" {% if request.GET.organic_fatty_acid == "stearic_acid_3st" %}selected{% endif %}>Stearic acid with three stereate (St) groups</option>
+    <option value="triolein" {% if request.GET.organic_fatty_acid == "triolein" %}selected{% endif %}>Triolein</option>
+    <option value="oleic_acid" {% if request.GET.organic_fatty_acid == "oleic_acid" %}selected{% endif %}>Oleic acid</option>
+  </select>
           <br/>
 
           <label for="catalyser" class="block mb-2 text-sm text-left font-medium text-gray-600 dark:text-white">Select the added value molecule</label>
-          <select id="catalyser" name="catalyser" class="bg-gray-50 border mb-4 border-gray-300 w-full text-gray-900 text-sm rounded-lg">
-            <option selected value="1_3_specific_lipase">1,3 specific lipase</option>
-          </select>
+  <select id="catalyser" name="catalyser" class="bg-gray-50 border mb-4 border-gray-300 w-full text-gray-900 text-sm rounded-lg">
+    <option value="1_3_specific_lipase" {% if request.GET.catalyser == "1_3_specific_lipase" %}selected{% endif %}>1,3 specific lipase</option>
+  </select>
           <br/>
 
           <button type="button" onclick="checkReaction()" class="inline-flex w-full items-center rounded-lg justify-center px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white bg-neutral-700">Show reaction</button>
