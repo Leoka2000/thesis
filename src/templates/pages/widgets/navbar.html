@@ -1,3 +1,5 @@
+
+{% load static %}
 <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
   <div class="flex flex-wrap items-center justify-between">
     <div class="flex items-center justify-start">
@@ -11,13 +13,11 @@
         <span class="sr-only">Toggle sidebar</span>
       </button>
       <a href="https://leoreusportfolio.netlify.app/" target="_blank" class="flex items-center justify-between mr-4">
-        <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+     
+        <img src="{% static 'img/logo.png' %}" alt="triolein_reaction" class="h-8 mr-1">
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Leo Thesis</span>
       </a>
-      {% if request.path == '/transferases' %} <p class="font-bold">Transferases</p> {% endif %}
-      {% if request.path == '/lipases' %} <p class="font-bold">Lipases</p> {% endif %}
-      {% if request.path == '/oxidoreductases' %} <p class="font-bold">Oxidoreductases</p> {% endif %}
-      {% if request.path == '/hydrolases' %} <p class="font-bold">Hydrolases</p> {% endif %}
+      
     </div>
     <div class="flex items-center lg:order-2">
       <!-- Notifications -->

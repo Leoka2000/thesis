@@ -59,9 +59,10 @@ def lipases_view(request):
     # creating the context yoo
     reagents_data = {}
     products_data = {}
-    show_reaction_image = False
+    show_reaction_image_top_oil_triolein = False
+    show_reaction_image_midfraction_stearic_acid = False
 
-    # Process request parameters if they exist
+    # Pprocess mages if get request s succcessfull
     if request.method == "GET":
         palm_oil = request.GET.get("palm_oil_midfraction")
         organic_acid = request.GET.get("organic_fatty_acid")
@@ -73,7 +74,7 @@ def lipases_view(request):
             and catalyser == "1_3_specific_lipase"
             
         ):
-            show_reaction_image = True
+            show_reaction_image_top_oil_triolein = True
             reagents_data = process_molecules(hms_triolein_reagents)
             products_data = process_molecules(hms_triolein_products)
             messages.success(request, "HMS-Triolein reaction successful! The reagents and products are displayed.")
@@ -82,6 +83,7 @@ def lipases_view(request):
             and organic_acid == "stearic_acid_3st"
             and catalyser == "1_3_specific_lipase"
         ):
+            show_reaction_image_midfraction_stearic_acid = True
             reagents_data = process_molecules(second_cbs_reaction_agents)
             products_data = process_molecules(second_cbs_reaction_products)
             messages.success(request, "Reaction successful! The reagents and products are displayed.")
@@ -93,7 +95,9 @@ def lipases_view(request):
     return render(request, 'pages/lipases.html', {
         "reagents_data": reagents_data,
         "products_data": products_data,
-        "show_reaction_image": show_reaction_image,
+        "show_reaction_image_top_oil_triolein": show_reaction_image_top_oil_triolein,
+        "show_reaction_image_midfraction_stearic_acid": show_reaction_image_midfraction_stearic_acid
+        
     })
 
 

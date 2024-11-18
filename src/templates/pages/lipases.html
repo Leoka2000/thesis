@@ -6,16 +6,29 @@
   {% include 'pages/widgets/sidebar.html' %}
 
   <main class="h-auto p-4 pt-20 md:ml-64">
+   <h1 class="">Lipases</h1>
     <div>
       <div class="w-full flex justify-center items-center">
-        <form id="reactionForm" class="md:w-96 max-w-lg rounded-lg border-2 border-neutral-100 shadow-sm p-4" method="get" action="{% url 'lipases' %}">
-          <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="px-2 pb-2 mx-auto flex justify-center items-center">
+        <form id="reactionForm" class="md:w-96 max-w-lg rounded-lg border-2 border-neutral-100 shadow-sm p-5" method="get" action="{% url 'lipases' %}">
+          
+          <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 8000)" x-show="show" class="px-2 text-base pb-2 mx-auto absolute right-2 top-16">
             {% if messages %}
               {% for message in messages %}
-                <div id="toast-warning"  class="flex items-center w-full max-w-xs p-4 rounded-lg shadow text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400
-                    {% if message.tags == 'success' %} border-green-500 text-green-600 bg-green-50 dark:text-green-200 {% endif %}
+              
+                <div id="toast-warning"  class="flex items-center w-full max-w-xs p-4 rounded-lg shadow-lg text-gray-500 border-2 border-gray-200 bg-white dark:bg-gray-800 dark:text-gray-400
+                    {% if message.tags == 'success' %}   text-green-600 bg-green-100 {% endif %}
                     {% if message.tags == 'error' %} border-red-500 text-red-600 bg-red-50 dark:bg-red-800 dark:text-red-200 {% endif %}" role="alert">
-                  <div class="ml-3 text-sm font-normal">{{ message }}</div>
+                  <div class="ml-3  font-normal">
+
+                    <div class="inline-flex items-center justify-center flex-shrink-0 mr-4 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                      </svg>
+                      <span class="sr-only">Check icon</span>
+                  </div>
+                  </div>
+                  {{ message }}
+                  
                   <button type="button" @click="show = false" class="ml-auto text-gray-400 hover:text-gray-900 rounded-lg p-1.5 dark:text-gray-500 dark:hover:text-white" aria-label="Close">
                     <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/></svg>
                   </button>
@@ -23,10 +36,16 @@
               {% endfor %} 
             {% endif %}
           </div>
-          {% if show_reaction_image %}
+          {% if show_reaction_image_top_oil_triolein %}
           <div class="mt-10 text-center">
             <h2 class="text-lg font-semibold text-gray-700">Reaction Result</h2>
-            <img src="{% static 'img/palm_oil_topfraction_triolein.jpg' %}" alt="triolein_reaction" class="mt-4">
+            <img src="{% static 'img/pam_oil_midfraction_3st.jpg' %}" alt="triolein_reaction" class="my-4 p-2 rounded-md shadow-md">
+          </div>
+        {% endif %}
+        {% if show_reaction_image_midfraction_stearic_acid %}
+          <div class="mt-10 text-center">
+            <h2 class="text-lg font-semibold text-gray-700">Reaction Result</h2>
+            <img src="{% static 'img/palm_oil_topfraction_triolein.jpg' %}" alt="stearic_acid_reaction" class="my-4 p-2 rounded-md shadow-md">
           </div>
         {% endif %}
           <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 dark:text-white">Select palm oil type</label>
