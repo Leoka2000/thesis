@@ -8,18 +8,18 @@ from io import BytesIO
 def lipases_view(request):
     
     # Define SMILES strings for reagents and products (First reaction)
-    reagents = {
+    first_cbs_reaction_reagents = {
         "POP Palm oil mid fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
         "Stearic Acid": "C(CCCCCCCCCCCCCCCCC)(=O)O",
     }
-    products = {
+    first_cbs_reaction_products = {
         "P-OSt - Cocoa butter substitute": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(C(C)O)OC(CCCCCCCCCCCCCCCCC)=O",
         "St-O-St": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCCCC)=O)COC(CCCCCCCCCCCCCCCCC)=O",
         "Palmitate": "C(CCCCCCCCCCCCCCC)(=O)[O-]",
     }
 
     # Second reaction
-    second_cbs_reaction_agents = {
+    second_cbs_reaction_reagents = {
         "P-O-P: Palm oil mid fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
         "St-St-St: Stearic acid with three stereate groups": "C(CCCCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O",
     }
@@ -86,12 +86,12 @@ def lipases_view(request):
             and catalyser == "1_3_specific_lipase"
         ):
             show_reaction_image_midfraction_stearic_acid = True
-            reagents_data = process_molecules(second_cbs_reaction_agents)
+            reagents_data = process_molecules(second_cbs_reaction_reagents)
             products_data = process_molecules(second_cbs_reaction_products)
             messages.success(request, "Reaction successful! The reagents and products are displayed.")
         else:
-            reagents_data = process_molecules(reagents)
-            products_data = process_molecules(products)
+            reagents_data = process_molecules(first_cbs_reaction_reagents)
+            products_data = process_molecules(first_cbs_reaction_products)
             messages.success(request, "Reaction successful! The reagents and products are displayed.")
 
     return render(request, 'pages/lipases.html', {
