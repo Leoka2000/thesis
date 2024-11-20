@@ -77,15 +77,16 @@ def lipases_view(request):
 
     # Pprocess mages if get request s succcessfull
     if request.method == "GET":
+        # Getting the GET request data
         palm_oil = request.GET.get("palm_oil_midfraction")
         organic_acid = request.GET.get("organic_fatty_acid")
         catalyser = request.GET.get("catalyser")
 
+        # Check for matching reaction based on user input
         if (
             palm_oil == "palm_top_oil"
             and organic_acid == "triolein"
             and catalyser == "1_3_specific_lipase"
-            
         ):
             show_reaction_image_top_oil_triolein = True
             reagents_data = process_molecules(first_hms_triolein_reagents)
@@ -99,21 +100,27 @@ def lipases_view(request):
             show_reaction_image_midfraction_stearic_acid = True
             reagents_data = process_molecules(second_cbs_reaction_reagents)
             products_data = process_molecules(second_cbs_reaction_products)
-            messages.success(request, "Reaction successful! The reagents and products are displayed.")
+            messages.success(request, "Second P-OStReaction successful! The reagents and products are displayed.")
         elif (
             palm_oil == "palm_top_oil"
             and organic_acid == "oleic_acid"
             and catalyser == "1_3_specific_lipase"
         ):
-            
             reagents_data = process_molecules(second_hms_oleic_acid_reagents)
             products_data = process_molecules(second_hms_oleic_acid_products)
-            messages.success(request, "HMS-Oleic acid reaction successful! The reagents and products are displayed.")   
-        else:
+            messages.success(request, "HMS-Oleic acid reaction successful! The reagents and products are displayed.")
+        elif (
+            palm_oil == "palm_oil_midfraction"
+            and organic_acid == "stearic_acid"
+            and catalyser == "1_3_specific_lipase"
+        ):
             reagents_data = process_molecules(first_cbs_reaction_reagents)
             products_data = process_molecules(first_cbs_reaction_products)
-            messages.error(request, "No reaction found, pls try again")
+            messages.success(request, "P-OSt reaction successful! The reagents and products are displayed.")
+        else:
+            messages.error(request, "Invalid input. Please check your selections.")
 
+            
     return render(request, 'pages/lipases.html', {
         "reagents_data": reagents_data,
         "products_data": products_data,
