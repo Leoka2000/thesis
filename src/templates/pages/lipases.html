@@ -36,18 +36,7 @@
               {% endfor %} 
             {% endif %}
           </div>
-          {% if show_reaction_image_top_oil_triolein %}
-          <div class="mt-10 text-center">
-            <h2 class="text-lg font-semibold text-gray-700">Reaction Result</h2>
-            <img src="{% static 'img/pam_oil_midfraction_3st.jpg' %}" alt="triolein_reaction" class="my-4 p-2 rounded-md shadow-md">
-          </div>
-        {% endif %}
-        {% if show_reaction_image_midfraction_stearic_acid %}
-          <div class="mt-10 text-center">
-            <h2 class="text-lg font-semibold text-gray-700">Reaction Result</h2>
-            <img src="{% static 'img/palm_oil_midfraction_st.jpg' %}" alt="stearic_acid_reaction" class="my-4 p-2 rounded-md shadow-md">
-          </div>
-        {% endif %}
+          
         <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600 ">Select palm oil type</label>
         <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
           <option value="palm_oil_midfraction" {% if request.GET.palm_oil_midfraction == "palm_oil_midfraction" %}selected{% endif %}>Palm oil mid fraction</option>
