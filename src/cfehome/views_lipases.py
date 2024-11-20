@@ -31,14 +31,25 @@ def lipases_view(request):
     }
 
     # HMS Triolein Reaction
-    hms_triolein_reagents = {
+    first_hms_triolein_reagents = {
         "palm_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
         "Triolein": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCC\C=C/CCCCCCCC)=O)OC(CCCCCCC\C=C/CCCCCCCC)=O",
     }
-    hms_triolein_products = {
+    first_hms_triolein_products = {
         "HMS (O-P-O)": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\C=C/CCCCCCCC)=O)COC(CCCCCCC\C=C/CCCCCCCC)=O",
         "P-O-P": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC[C@@H](COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
     }
+
+    second_hms_oleic_acid_reagents = {
+        "palm_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
+        "Oleic acid with three oleate groups": "C(CCCCCCCC=CCCCCCCCC)(=O)OCC(COC(CCCCCCCC=CCCCCCCCC)=O)OC(CCCCCCCC=CCCCCCCCC)=O",
+    }
+    second_hms_oleic_acid_products = {
+        "HMS (O-P-O)": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\\C=C/CCCCCCCC)=O)COC(CCCCCCC\\C=C/CCCCCCCC)=O",
+        "P-P-O": "C(CCCCCCCCCCCCCCC)(=O)OCC(OC(CCCCCCC\\C=C/CCCCCCCC)=O)COC(CCCCCCCCCCCCCCC)=O",
+        "Palmitate": "C(CCCCCCCCCCCCCCC)(=O)[O-]",
+    }
+
 
     def process_molecules(molecule_dict):
         processed_data = {}
@@ -46,7 +57,7 @@ def lipases_view(request):
             molecule = Chem.MolFromSmiles(smiles)
             if molecule:
                 smiles_string = Chem.MolToSmiles(molecule)
-                img = Draw.MolToImage(molecule, size=(300, 300))
+                img = Draw.MolToImage(molecule, size=(500, 200))
                 buffered = BytesIO()
                 img.save(buffered, format="PNG")
                 img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
@@ -77,8 +88,8 @@ def lipases_view(request):
             
         ):
             show_reaction_image_top_oil_triolein = True
-            reagents_data = process_molecules(hms_triolein_reagents)
-            products_data = process_molecules(hms_triolein_products)
+            reagents_data = process_molecules(first_hms_triolein_reagents)
+            products_data = process_molecules(first_hms_triolein_products)
             messages.success(request, "HMS-Triolein reaction successful! The reagents and products are displayed.")
         elif (
             palm_oil == "palm_oil_midfraction"
@@ -89,10 +100,19 @@ def lipases_view(request):
             reagents_data = process_molecules(second_cbs_reaction_reagents)
             products_data = process_molecules(second_cbs_reaction_products)
             messages.success(request, "Reaction successful! The reagents and products are displayed.")
+        elif (
+            palm_oil == "palm_top_oil"
+            and organic_acid == "oleic_acid"
+            and catalyser == "1_3_specific_lipase"
+        ):
+            
+            reagents_data = process_molecules(second_hms_oleic_acid_reagents)
+            products_data = process_molecules(second_hms_oleic_acid_products)
+            messages.success(request, "HMS-Oleic acid reaction successful! The reagents and products are displayed.")   
         else:
             reagents_data = process_molecules(first_cbs_reaction_reagents)
             products_data = process_molecules(first_cbs_reaction_products)
-            messages.success(request, "Reaction successful! The reagents and products are displayed.")
+            messages.error(request, "No reaction found, pls try again")
 
     return render(request, 'pages/lipases.html', {
         "reagents_data": reagents_data,
@@ -128,3 +148,7 @@ def lipases_view(request):
     #     "St-St-St": "C(CCCCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O"  #a trygliceride with three stereate group IUPAC: 2,3-bis(octadecanoyloxy)propyl octadecanoate
 
     # }
+
+
+    #iupac name for oleic acid with three oleates: Propane-1,2,3-triyl tris(9-octadecenoate)
+    #iupac for P-P-O: 1,3-Dipalmitoyl-2-oleoylglycerol
