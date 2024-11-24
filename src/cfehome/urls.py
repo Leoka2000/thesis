@@ -20,11 +20,12 @@ from django.urls import path
 from . import views
 from . import views_oxidoreductases
 from . import views_lipases
+from . import views_hydrolases
 
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('lipases', views_lipases.lipases_view, name='lipases'),
-    path('hydrolases', views.hydrolases_view, name='hydrolases'),
+    path('hydrolases', views_hydrolases.hydrolases_view, name='hydrolases'),
     path('transferases', views.transferases_view, name='transferases'),
     path('oxidoreductases', views_oxidoreductases.oxidoreductases_view, name='oxidoreductases'),
     path('admin/', admin.site.urls),
