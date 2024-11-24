@@ -9,7 +9,7 @@
 
     <main class="h-auto p-4 pt-20 mx-2 md:ml-64">
       <h1 class=" font-bold text-2xl">Oxidoreductases</h1>
-      <div class="w-full flex justify-center my-8">
+      <div class="w-full flex justify-center ">
         <form id="reactionForm" class="max-w-md w-full rounded-lg  border-2 border-neutral-100 shadow-sm p-4" method="get" action="{% url 'oxidoreductases' %}">
           <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="p-1 my-2 ">
             {% if messages %}
@@ -59,11 +59,9 @@
           </select>
           <br />
           
-         
-       
-          <button type="button" onclick="checkReaction()" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-200 rounded-md bg-neutral-700 hover:bg-neutral-900 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 focus:shadow-outline focus:outline-none">
-            Show reaction
-        </button>
+        <button type="button" onclick="checkReaction()" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-blue-500 transition-colors duration-100 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 bg-blue-50 hover:text-blue-600 hover:bg-blue-100">
+          Show reaction
+      </button>
         
         </form>
       </div>
@@ -99,21 +97,16 @@
                 <a href="#" class="bg-white border border-gray-50 rounded-xl shadow w-full  flex justify-center items-center">
                   <img src="data:image/png;base64,{{ img }}" alt="Reagent Image" class="w-40 rounded-xl" />
                 </a>
-                <svg class="w-10 m-4 h-6 text-gray-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                  </svg>
+                
                   
                   
               </div>
             
             {% endfor %}
-            <svg width="100px" height="40px" class="my-auto ml-5 block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 8C2.44772 8 2 8.44772 2 9C2 9.55228 2.44772 10 3 10H21C21.5523 10 22 9.55228 22 9C22 8.44772 21.5523 8 21 8H3Z" fill="#6b7280"/>
-                <path d="M3 14C2.44772 14 2 14.4477 2 15C2 15.5523 2.44772 16 3 16H21C21.5523 16 22 15.5523 22 15C22 14.4477 21.5523 14 21 14H3Z" fill="#6b7280"/>
-                </svg>
-        
+            
                 
           </div>
+          
  
           <!-- Bottom row: 2 cards occupying full width of the grid, with right arrows outside -->
           <h2 class=" font-bold text-gray-600 block">Products</h2>
@@ -124,9 +117,7 @@
                   <img src="data:image/png;base64,{{ img }}" alt="Product Image" class="w-40 rounded-xl" />
                 </a>
                 
-                <svg class="w-10 m-4 h-6 text-gray-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                  </svg>
+                
               </div>
             {% endfor %}
           </div>
