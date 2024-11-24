@@ -66,34 +66,39 @@ def oxidoreductases_view(request):
             images.append(encoded_image)
         return images
 
-    # Check conditions for different reactions
-    if selected_enzyme == "laccase" and selected_chemical == "carbonyl":
-        reaction_available = True
-        reagents_images = generate_images(reagents_smiles)
-        products_images = generate_images(products_smiles)
-    
-    elif selected_enzyme == "lignin_peroxidase" and selected_chemical == "carbonyl":
-        reaction_available = True
-        reagents_images = generate_images(lignin_reaction_reagents)
-        products_images = generate_images(lignin_reaction_products)
-        
-    elif selected_enzyme == "versatile_peroxidase" and selected_chemical == "carbonyl":
-        reaction_available = True
-        reagents_images = generate_images(versatile_reaction_reagents)
-        products_images = generate_images(versatile_reaction_products)
-        
-    elif selected_enzyme == "maganese_peroxidade" and selected_chemical == "carbonyl":  # Added new condition for manganese peroxidase
-        reaction_available = True
-        reagents_images = generate_images(manganese_reaction_reagents)
-        products_images = generate_images(manganese_reaction_products)
-    if reaction_available:
-        messages.success(request, "Reaction found successfully!")
-    else:
-        messages.error(request, "Reaction not available for selected enzyme or chemical group.")
+    if request.method == "GET" and 'specific_enzyme' in request.GET and 'chemical_group' in request.GET:
+        # Check the selected enzyme and chemical group
+        selected_enzyme = request.GET.get('specific_enzyme', '').lower()
+        selected_chemical = request.GET.get('chemical_group', '').lower()
+
+        # Check conditions for different reactions
+        if selected_enzyme == "laccase" and selected_chemical == "carbonyl":
+            reaction_available = True
+            reagents_images = generate_images(reagents_smiles)
+            products_images = generate_images(products_smiles)
+        elif selected_enzyme == "lignin_peroxidase" and selected_chemical == "carbonyl":
+            reaction_available = True
+            reagents_images = generate_images(lignin_reaction_reagents)
+            products_images = generate_images(lignin_reaction_products)
+        elif selected_enzyme == "versatile_peroxidase" and selected_chemical == "carbonyl":
+            reaction_available = True
+            reagents_images = generate_images(versatile_reaction_reagents)
+            products_images = generate_images(versatile_reaction_products)
+        elif selected_enzyme == "maganese_peroxidade" and selected_chemical == "carbonyl":
+            reaction_available = True
+            reagents_images = generate_images(manganese_reaction_reagents)
+            products_images = generate_images(manganese_reaction_products)
+
+        # Display appropriate message based on reaction availability
+        if reaction_available:
+            messages.success(request, "Reaction found successfully!")
+        else:
+            messages.error(request, "Reaction not available for selected enzyme or chemical group.")
+
     context = {
         "reaction_available": reaction_available,
         "reagents_images": reagents_images,
         "products_images": products_images,
     }
-    
+
     return render(request, "pages/oxidoreductases.html", context)

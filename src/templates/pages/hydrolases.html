@@ -20,24 +20,30 @@
       <div class="flex justify-center p-10 items-center">
         <div class="flex items-center gap-4">
           <!-- PET polymer image -->
+          {% if added_molecule_image %}
           <a href="#" class="bg-white border border-gray-50 rounded-xl shadow h-auto text-center flex-col justify-center items-center"><img src="data:image/png;base64,{{ pet_polymer_image }}" alt="Product Image" class="w-60 rounded-xl" /><p class="pb-2 text-gray-600 -mt-4">PET polymer<p></a>
-
+          {% endif %}
           <!-- Arrow for PET polymer -->
+          {% if added_molecule_image %}
           <div class="flex items-center">
             <svg class="w-10 h-6 text-gray-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
             </svg>
           </div>
+          {% endif %}
 
           <!-- PET monomer image -->
+          {% if added_molecule_image %}
           <a href="#" class="bg-white border border-gray-50 rounded-xl shadow h-auto text-center flex-col justify-center items-center"><img src="data:image/png;base64,{{ pet_image }}" alt="Product Image" class="w-60 rounded-xl" /><p class="pb-2 text-gray-600 -mt-6">PET monomer<p></a>
-
+            {% endif %}
           <!-- Arrow for PET monomer -->
+          {% if added_molecule_image %}
           <div class="flex items-center">
             <svg class="w-10 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
             </svg>
           </div>
+          {% endif %}
 
           <!-- Selected value-added molecule image (if exists) -->
           {% if added_molecule_image %}
