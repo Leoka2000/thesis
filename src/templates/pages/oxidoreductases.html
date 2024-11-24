@@ -14,9 +14,7 @@
           <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="p-1 my-2 ">
             {% if messages %}
                 {% for message in messages %}
-                    <div id="toast-warning" class="flex items-center w-full  p-4 rounded-lg shadow text-gray-500 bg-white  
-                        {% if message.tags == 'success' %}   {% endif %}
-                        {% if message.tags == 'error' %}     {% endif %}" role="alert">
+                    <div id="toast-warning" class="flex items-center w-full  p-4 rounded-lg shadow text-gray-500 bg-white" role="alert">
                         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg">
                             <!-- Icons based on message type -->
                             {% if message.tags == 'success' %}

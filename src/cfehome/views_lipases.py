@@ -72,12 +72,13 @@ def lipases_view(request):
     products_data = {}
     show_reaction_image_top_oil_triolein = False
     show_reaction_image_midfraction_stearic_acid = False
-    #show_reaction_image_midfractiction_oleic_acid = False
+    form_submitted = False
+ 
     
 
     # Pprocess mages if get request s succcessfull
-    if request.method == "GET":
-        # Getting the GET request data
+    if request.method == "GET" and "palm_oil_midfraction" in request.GET:
+        form_submitted = True
         palm_oil = request.GET.get("palm_oil_midfraction")
         organic_acid = request.GET.get("organic_fatty_acid")
         catalyser = request.GET.get("catalyser")
@@ -125,7 +126,8 @@ def lipases_view(request):
         "reagents_data": reagents_data,
         "products_data": products_data,
         "show_reaction_image_top_oil_triolein": show_reaction_image_top_oil_triolein,
-        "show_reaction_image_midfraction_stearic_acid": show_reaction_image_midfraction_stearic_acid
+        "show_reaction_image_midfraction_stearic_acid": show_reaction_image_midfraction_stearic_acid,
+         "form_submitted": form_submitted,
         
     })
 
