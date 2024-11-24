@@ -14,10 +14,9 @@
           <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="p-1 my-2 ">
             {% if messages %}
                 {% for message in messages %}
-                    <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 rounded-lg shadow text-gray-500 bg-white  
-                        {% if message.tags == 'success' %} border-green-500 text-green-600 bg-green-50  {% endif %}
-                        {% if message.tags == 'error' %} border-red-500 text-red-600  bg-red-50  {% endif %}
-                    " role="alert">
+                    <div id="toast-warning" class="flex items-center w-full  p-4 rounded-lg shadow text-gray-500 bg-white  
+                        {% if message.tags == 'success' %}   {% endif %}
+                        {% if message.tags == 'error' %}     {% endif %}" role="alert">
                         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg">
                             <!-- Icons based on message type -->
                             {% if message.tags == 'success' %}
@@ -131,16 +130,7 @@
               </div>
             {% endfor %}
           </div>
-        {% else %}
-          <div class="flex items-center w-full max-w-xs mx-auto mt-10 p-4 mb-4 text-gray-500 bg-red-50 rounded-lg shadow  " role="alert">
-            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-50 rounded-lg ">
-              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
-              </svg>
-              <span class="sr-only">Error icon</span>
-            </div>
-            <div class="ml-3 text-sm font-normal">No reaction found</div>
-          </div>
+       
         {% endif %}
       </div>
 
