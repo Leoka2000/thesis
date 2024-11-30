@@ -72,7 +72,27 @@
         </form>
       </div>
     </div>
-
+    <script>
+      let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 250, 250);
+      transformStick.styles.set3DRepresentation('Stick');
+      transformStick.styles.backgroundColor = 'black';
+    
+      // Fetch the content of the MOL file
+      fetch("{% static 'molfiles/output.mol' %}")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to load the mol file.");
+          }
+          return response.text(); // Read the file content as text
+        })
+        .then(molFileContent => {
+          let molecule = ChemDoodle.readMOL(molFileContent, 1); // Pass the content to readMOL
+          transformStick.loadMolecule(molecule); // Load the molecule into the canvas
+        })
+        .catch(error => {
+          console.error("Error loading molecule:", error);
+        });
+    </script>
     {% if reagents_data and products_data %}
       <!-- Display Reagents -->
       <div class="mt-10">
@@ -83,6 +103,7 @@
               <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
               <img class="w-full h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule" />
             </div>
+            
           {% endfor %}
         </div>
       </div>
