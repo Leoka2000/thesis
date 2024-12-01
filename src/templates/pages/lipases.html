@@ -12,7 +12,7 @@
         <form id="reactionForm" class="max-w-md w-full rounded-lg  border-2 border-neutral-100 shadow-sm p-4" method="get" action="{% url 'lipases' %}">
           
           <!-- Toast Messages -->
-          <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 8000)" x-show="show" class="absolute top-16 right-2">
+          <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 8000)" x-show="show" class="fixed top-16 right-2">
             {% if form_submitted and messages %}
               {% for message in messages %}
                 <div id="toast-{{ message.tags }}" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow  " role="alert">
@@ -81,7 +81,7 @@
           {% for name, data in reagents_data.items %}
             <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
               <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
-              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule" data-modal-target="default-modal" data-modal-toggle="default-modal" onclick="showMolecule('{{ data.image_base64 }}', '{{ name }}')" />
+              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule" data-modal-target="default-modal" data-modal-toggle="default-modal" />
             </div>
           
           {% endfor %}
@@ -95,7 +95,7 @@
           {% for name, data in products_data.items %}
             <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
               <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
-              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"  data-modal-target="default-modal" data-modal-toggle="default-modal" onclick="showMolecule('{{ data.image_base64 }}', '{{ name }}')"/>
+              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"  data-modal-target="default-modal" data-modal-toggle="default-modal" />
             </div>
           {% endfor %}
         </div>
@@ -118,7 +118,7 @@
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
-      </div>
+      </div>6
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
         <script>
@@ -129,7 +129,7 @@
           // Fetch the content of the MOL file
           fetch("{% static 'molfiles/lipases/palm_oil_mid_fraction.mol' %}")
             .then(response => {
-              if (!response.ok) {
+              if (!response.ok) { 
                 throw new Error("Failed to load the mol file.");
               }
               return response.text(); // Read the file content as text
@@ -154,12 +154,7 @@
     form.submit();
   }
 
-  function showMolecule(imageBase64, moleculeName) {
-    const modalImage = document.getElementById('molecule-image');
-    const modalTitle = document.getElementById('molecule-title');
-    modalImage.src = `data:image/png;base64,${imageBase64}`;
-    modalTitle.textContent = moleculeName;
-  }
+
 </script>
 {% endblock %}
 

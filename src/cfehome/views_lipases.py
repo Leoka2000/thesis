@@ -6,48 +6,49 @@ import base64
 from io import BytesIO
 
 def lipases_view(request):
-    
+
+   
     # Define SMILES strings for reagents and products (First reaction)
     first_cbs_reaction_reagents = {
-        "P-O-P: Palm oil mid fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
-        "Stearic Acid": "C(CCCCCCCCCCCCCCCCC)(=O)O",
+        "palm_oil_mid_fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
+        "stearic_acid": "C(CCCCCCCCCCCCCCCCC)(=O)O",
     }
     first_cbs_reaction_products = {
-        "P-OSt - Cocoa butter substitute": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(C(C)O)OC(CCCCCCCCCCCCCCCCC)=O",
-        "St-O-St": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCCCC)=O)COC(CCCCCCCCCCCCCCCCC)=O",
-        "Palmitate": "C(CCCCCCCCCCCCCCC)(=O)[O-]",
+        "P_OSt": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(C(C)O)OC(CCCCCCCCCCCCCCCCC)=O", #Cocoa butter substitute
+        "St_O_St": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCCCC)=O)COC(CCCCCCCCCCCCCCCCC)=O",
+        "palmitate": "C(CCCCCCCCCCCCCCC)(=O)[O-]",
     }
 
     # Second reaction
     second_cbs_reaction_reagents = {
-        "P-O-P: Palm oil mid fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
-        "St-St-St: Stearic acid with three stereate groups": "C(CCCCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O",
+        "palm_oil_mid_fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
+        "St_St_St": "C(CCCCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O",
     }
     second_cbs_reaction_products = {
-        "P-OSt: Cocoa butter substitute": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(C(C)O)OC(CCCCCCCCCCCCCCCCC)=O",
-        "St-O-St": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCCCCO))COC(CCCCCCCCCCCCCCCCC)=O",
-        "P-St-St": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O",
-        "P-St-P": "C(CCCCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCC)=O)COC(CCCCCCCCCCCCCCC)=O",
+        "P_OSt": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(C(C)O)OC(CCCCCCCCCCCCCCCCC)=O",  #Cocoa butter substitute
+        "St_O_St": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCCCCO))COC(CCCCCCCCCCCCCCCCC)=O",
+        "P_St_St": "C(CCCCCCCCCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCCCC)=O",
+        "P_St_P": "C(CCCCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCCCCCCCCCC)=O)COC(CCCCCCCCCCCCCCC)=O",
     }
 
     # HMS Triolein Reaction
     first_hms_triolein_reagents = {
-        "palm_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
-        "Triolein": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCC\C=C/CCCCCCCC)=O)OC(CCCCCCC\C=C/CCCCCCCC)=O",
+        "palm_oil_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
+        "triolein": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCC\C=C/CCCCCCCC)=O)OC(CCCCCCC\C=C/CCCCCCCC)=O",
     }
     first_hms_triolein_products = {
-        "HMS (O-P-O)": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\C=C/CCCCCCCC)=O)COC(CCCCCCC\C=C/CCCCCCCC)=O",
-        "P-O-P": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC[C@@H](COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
+        "O_P_O": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\C=C/CCCCCCCC)=O)COC(CCCCCCC\C=C/CCCCCCCC)=O", #HMS
+        "P_O_P": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OC[C@@H](COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
     }
 
     second_hms_oleic_acid_reagents = {
-        "palm_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
-        "Oleic acid with three oleate groups": "C(CCCCCCCC=CCCCCCCCC)(=O)OCC(COC(CCCCCCCC=CCCCCCCCC)=O)OC(CCCCCCCC=CCCCCCCCC)=O",
+        "palm_oil_top_fraction": "C(CCCCCCCCCCCCCCC)(=O)O",
+        "oleic_acid_3O": "C(CCCCCCCC=CCCCCCCCC)(=O)OCC(COC(CCCCCCCC=CCCCCCCCC)=O)OC(CCCCCCCC=CCCCCCCCC)=O",
     }
     second_hms_oleic_acid_products = {
-        "HMS (O-P-O)": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\\C=C/CCCCCCCC)=O)COC(CCCCCCC\\C=C/CCCCCCCC)=O",
-        "P-P-O": "C(CCCCCCCCCCCCCCC)(=O)OCC(OC(CCCCCCC\\C=C/CCCCCCCC)=O)COC(CCCCCCCCCCCCCCC)=O",
-        "Palmitate": "C(CCCCCCCCCCCCCCC)(=O)[O-]",
+        "O_P_O": "C(CCCCCCCCCCCCCCC)(=O)OC(COC(CCCCCCC\\C=C/CCCCCCCC)=O)COC(CCCCCCC\\C=C/CCCCCCCC)=O", #HMS
+        "P_P_O": "C(CCCCCCCCCCCCCCC)(=O)OCC(OC(CCCCCCC\\C=C/CCCCCCCC)=O)COC(CCCCCCCCCCCCCCC)=O",
+        "palmitate": "C(CCCCCCCCCCCCCCC)(=O)[O-]",
     }
 
 
@@ -128,6 +129,7 @@ def lipases_view(request):
         "show_reaction_image_top_oil_triolein": show_reaction_image_top_oil_triolein,
         "show_reaction_image_midfraction_stearic_acid": show_reaction_image_midfraction_stearic_acid,
          "form_submitted": form_submitted,
+       
         
     })
 
