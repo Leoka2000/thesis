@@ -4,10 +4,21 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 import base64
 from io import BytesIO
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def submit_molecule(request):
+    if request.method == 'POST':
+        molecule_name = request.POST.get('molecule_name')
+        print(f"Received molecule: {molecule_name}")
+        # Store the molecule name in the session
+        request.session['molecule_name'] = molecule_name
+        return JsonResponse({'status': 'success', 'molecule': molecule_name})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
 def lipases_view(request):
-
-   
+    molecule_name = request.session.get('molecule_name')
     # Define SMILES strings for reagents and products (First reaction)
     first_cbs_reaction_reagents = {
         "palm_oil_mid_fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
@@ -74,9 +85,8 @@ def lipases_view(request):
     show_reaction_image_top_oil_triolein = False
     show_reaction_image_midfraction_stearic_acid = False
     form_submitted = False
- 
-    
 
+    
     # Pprocess mages if get request s succcessfull
     if request.method == "GET" and "palm_oil_midfraction" in request.GET:
         form_submitted = True
@@ -129,6 +139,8 @@ def lipases_view(request):
         "show_reaction_image_top_oil_triolein": show_reaction_image_top_oil_triolein,
         "show_reaction_image_midfraction_stearic_acid": show_reaction_image_midfraction_stearic_acid,
          "form_submitted": form_submitted,
+          "molecule_name": molecule_name,
+   
        
         
     })

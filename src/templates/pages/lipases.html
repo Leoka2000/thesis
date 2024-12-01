@@ -42,7 +42,7 @@
               {% endfor %}
             {% endif %}
           </div>
-
+         
           <!-- Form Fields -->
           <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600">Select palm oil type</label>
           <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
@@ -72,6 +72,8 @@
         </form>
       </div>
     </div>
+
+    {{molecule_name}}
    
     {% if reagents_data and products_data %}
       <!-- Display Reagents -->
@@ -79,11 +81,17 @@
         <h2 class="text-2xl font-semibold text-center mb-6">Reagents</h2>
         <div class="flex flex-wrap justify-center gap-8">
           {% for name, data in reagents_data.items %}
-            <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
+          <form method="post" action="{% url 'submit_molecule' %}" class="molecule-form w-64 p-4 border rounded-lg shadow-md bg-white" data-name="{{ name }}">
+            {% csrf_token %}
+            <input type="hidden" name="molecule_name" value="{{ name }}">
+    
+             
+   
+            <button type="button" class="image-submit-button">
               <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
               <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule" data-modal-target="default-modal" data-modal-toggle="default-modal" />
-            </div>
-          
+            </button>
+          </form>
           {% endfor %}
         </div>
       </div>
@@ -118,30 +126,10 @@
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
-      </div>6
+      </div>
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
-        <script>
-          let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 600, 600);
-          transformStick.styles.set3DRepresentation('Wireframe');
-          transformStick.styles.backgroundColor = 'black';
-        
-          // Fetch the content of the MOL file
-          fetch("{% static 'molfiles/lipases/palm_oil_mid_fraction.mol' %}")
-            .then(response => {
-              if (!response.ok) { 
-                throw new Error("Failed to load the mol file.");
-              }
-              return response.text(); // Read the file content as text
-            })
-            .then(molFileContent => {
-              let molecule = ChemDoodle.readMOL(molFileContent, 1); // Pass the content to readMOL
-              transformStick.loadMolecule(molecule); // Load the molecule into the canvas
-            })
-            .catch(error => {
-              console.error("Error loading molecule:", error);
-            });
-        </script> 
+       {% include 'pages/widgets/lipases_widgets/lipase_script.html' %}
       </div>
     </div>
   </div>
@@ -154,7 +142,40 @@
     form.submit();
   }
 
+  
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const forms = document.querySelectorAll('.molecule-form');
 
+    forms.forEach(form => {
+      form.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const moleculeName = form.dataset.name;
+
+        fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+          },
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(`Molecule submitted: ${moleculeName}`);
+          // Code to open the modal
+          const modal = document.querySelector(`#default-modal`);
+          if (modal) {
+            modal.classList.remove('hidden');
+            modal.querySelector('#molecule-title').textContent = moleculeName;
+          }
+        })
+        .catch(error => console.error('Error submitting molecule:', error));
+      });
+    });
+  });
 </script>
 {% endblock %}
 

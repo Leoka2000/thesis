@@ -1,0 +1,27 @@
+
+{% load static %}
+
+<div>
+    {{ molecule_name }}
+<script>
+    let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 600, 600);
+    transformStick.styles.set3DRepresentation('Wireframe');
+    transformStick.styles.backgroundColor = 'black';
+  
+    // Fetch the content of the MOL file
+    fetch("{% static 'molfiles/lipases/palm_oil_mid_fraction.mol' %}")
+      .then(response => {
+        if (!response.ok) { 
+          throw new Error("Failed to load the mol file.");
+        }
+        return response.text(); // Read the file content as text
+      })
+      .then(molFileContent => {
+        let molecule = ChemDoodle.readMOL(molFileContent, 1); // Pass the content to readMOL
+        transformStick.loadMolecule(molecule); // Load the molecule into the canvas
+      })
+      .catch(error => {
+        console.error("Error loading molecule:", error);
+      });
+  </script> 
+</div>

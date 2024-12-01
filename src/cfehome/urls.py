@@ -28,7 +28,9 @@ urlpatterns = [
     path('hydrolases', views_hydrolases.hydrolases_view, name='hydrolases'),
     path('transferases', views.transferases_view, name='transferases'),
     path('oxidoreductases', views_oxidoreductases.oxidoreductases_view, name='oxidoreductases'),
+    path('submit-molecule/', views_lipases.submit_molecule, name='submit_molecule'),
     path('admin/', admin.site.urls),
+    
 ]
 
 if settings.DEBUG:
