@@ -6,14 +6,25 @@
     {% include 'pages/widgets/sidebar.html' %}
 
     <main class="h-auto p-4 pt-20 md:ml-64">
-        {{ name }}
+        <a href="{% url 'lipases' %}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-yellow-600 transition-colors duration-100 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-yellow-100 bg-yellow-50 hover:text-yellow-700 hover:bg-yellow-100">
+            <svg class="w-6 h-6 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+              </svg>
+              Back
+            </a>
+        
+        
+      
 
 
         <div class="h-full w-full">
+           {% include 'pages/widgets/lipases_widgets/condional_naming.html' %}     {% comment %} Please do not check this component, the code is too ugly, it gives me shame hahahahha {% endcomment %}
+        
             <script>
-                let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 600, 600);
-                transformStick.styles.set3DRepresentation('Wireframe');
-                transformStick.styles.backgroundColor = 'black';
+                let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 700, 500);
+                transformStick.styles.set3DRepresentation('Ball and Stick');
+                transformStick.styles.backgroundColor = 'white';
+                transformStick.styles.borderColor = 'white';
               
       
                 const moleculeUrl = "{% static 'molfiles/lipases/' %}{{ name }}.mol";
@@ -38,5 +49,19 @@
         </div>
     </main>
   </div>
+  <style>
+    .ChemDoodleWebComponent {
+        border-radius: 0.25rem;
+      
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        display: flex;
+        justify-content: center;
+    }
+    canvas.ChemDoodleWebComponent {
+        border: 1px solid #e5e7eb;
+    }
+</style>
 {% endblock %}
+
+
 
