@@ -42,7 +42,7 @@
               {% endfor %}
             {% endif %}
           </div>
-         
+
           <!-- Form Fields -->
           <label for="palm_oil_midfraction" class="block mb-2 w-full text-left text-sm font-medium text-gray-600">Select palm oil type</label>
           <select id="palm_oil_midfraction" name="palm_oil_midfraction" class="bg-gray-50 mb-4 w-full border border-gray-300 text-gray-900 text-sm rounded-lg">
@@ -72,26 +72,20 @@
         </form>
       </div>
     </div>
-
-    {{molecule_name}}
    
     {% if reagents_data and products_data %}
       <!-- Display Reagents -->
       <div class="mt-10">
+     
         <h2 class="text-2xl font-semibold text-center mb-6">Reagents</h2>
         <div class="flex flex-wrap justify-center gap-8">
           {% for name, data in reagents_data.items %}
-          <form method="post" action="{% url 'submit_molecule' %}" class="molecule-form w-64 p-4 border rounded-lg shadow-md bg-white" data-name="{{ name }}">
-            {% csrf_token %}
-            <input type="hidden" name="molecule_name" value="{{ name }}">
-    
-             
-   
-            <button type="button" class="image-submit-button">
+          <a href="{% url 'molecule_detail' name %}"  class="cursor-pointer hover:shadow-md transition-shadow">
+            <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
               <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
-              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule" data-modal-target="default-modal" data-modal-toggle="default-modal" />
-            </button>
-          </form>
+              <img class="w-full h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"/>
+            </div>
+          </a>
           {% endfor %}
         </div>
       </div>
@@ -103,7 +97,7 @@
           {% for name, data in products_data.items %}
             <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
               <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
-              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"  data-modal-target="default-modal" data-modal-toggle="default-modal" />
+              <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"   >
             </div>
           {% endfor %}
         </div>
@@ -113,27 +107,7 @@
   
 </div>
 
-<!-- Modal -->
-<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-  <div class="relative p-4 w-full max-w-2xl max-h-full">
-    <div class="relative bg-white rounded-lg shadow ">
-      <!-- Modal header -->
-      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
-        <h3 id="molecule-title" class="text-xl font-semibold text-gray-900 ">Molecule</h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center " data-modal-hide="default-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
-      </div>
-      <!-- Modal body -->
-      <div class="p-4 md:p-5 space-y-4">
-       {% include 'pages/widgets/lipases_widgets/lipase_script.html' %}
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 <script>
@@ -142,40 +116,6 @@
     form.submit();
   }
 
-  
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const forms = document.querySelectorAll('.molecule-form');
-
-    forms.forEach(form => {
-      form.addEventListener('click', (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(form);
-        const moleculeName = form.dataset.name;
-
-        fetch(form.action, {
-          method: 'POST',
-          headers: {
-            'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
-          },
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(`Molecule submitted: ${moleculeName}`);
-          // Code to open the modal
-          const modal = document.querySelector(`#default-modal`);
-          if (modal) {
-            modal.classList.remove('hidden');
-            modal.querySelector('#molecule-title').textContent = moleculeName;
-          }
-        })
-        .catch(error => console.error('Error submitting molecule:', error));
-      });
-    });
-  });
 </script>
 {% endblock %}
 
