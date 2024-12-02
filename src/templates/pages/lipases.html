@@ -80,9 +80,9 @@
         <h2 class="text-2xl font-semibold text-center mb-6">Reagents</h2>
         <div class="flex flex-wrap justify-center gap-8">
           {% for name, data in reagents_data.items %}
-          <a href="{% url 'molecule_detail' name %}"  class="cursor-pointer hover:shadow-lg transition-shadow">
-            <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
-              <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
+          <a href="{% url 'molecule_detail' name %}"  class="cursor-pointer hover:shadow-lg border rounded-md transition-shadow">
+            <div class="w-64 p-4  bg-white ">
+              {% include 'pages/widgets/lipases_widgets/condional_naming.html' %}  
               <img class="w-full h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"/>
             </div>
           </a>
@@ -95,9 +95,9 @@
         <h2 class="text-2xl font-semibold text-center mb-6">Products</h2>
         <div class="flex flex-wrap justify-center gap-8">
           {% for name, data in products_data.items %}
-          <a href="{% url 'molecule_detail' name %}"  class="cursor-pointer hover:shadow-lg transition-shadow">
-            <div class="w-64 p-4 border rounded-lg shadow-md bg-white ">
-              <h3 class="text-lg font-medium text-gray-700 ">{{ name }}</h3>
+          <a href="{% url 'molecule_detail' name %}" class="cursor-pointer border rounded-md hover:shadow-lg transition-shadow">
+            <div class="w-64 p-4  bg-white ">
+              {% include 'pages/widgets/lipases_widgets/condional_naming.html' %}  
               <img class="w-full cursor-pointer h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"   >
             </div>
           </a>
