@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <style>
     body {
@@ -19,7 +19,7 @@
     {% include 'pages/widgets/sidebar.html' %}
 
     <main class="h-auto p-4 pt-20 md:ml-64">
-        <iframe width="500" height="500" src="https://mmb.irbbarcelona.org/3dRS/e/57cYbF" title="3dRS" allowfullscreen></iframe>
+        <iframe width="500" height="500" src="{% static 'molfiles/lipases/stearic_acid.mol' %}" title="3dRS" allowfullscreen></iframe>
     </main>
 </div>
 {% endblock %}
