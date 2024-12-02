@@ -79,7 +79,13 @@ def lipases_view(request):
     show_reaction_image_midfraction_stearic_acid = False
     form_submitted = False
 
-    
+    if 'reagents_data' in request.session and 'products_data' in request.session:
+        reagents_data = request.session['reagents_data']
+        products_data = request.session['products_data']
+        form_submitted = True
+        show_reaction_image_top_oil_triolein = request.session.get('show_reaction_image_top_oil_triolein', False)
+        show_reaction_image_midfraction_stearic_acid = request.session.get('show_reaction_image_midfraction_stearic_acid', False)
+
     # Pprocess mages if get request s succcessfull
     if request.method == "GET" and "palm_oil_midfraction" in request.GET:
         form_submitted = True
@@ -124,6 +130,12 @@ def lipases_view(request):
             messages.success(request, "P-OSt reaction successful! The reagents and products are displayed.")
         else:
             messages.error(request, "Invalid input. Please check your selections.")
+            
+        # Save data to session
+        request.session['reagents_data'] = reagents_data
+        request.session['products_data'] = products_data
+        request.session['show_reaction_image_top_oil_triolein'] = show_reaction_image_top_oil_triolein
+        request.session['show_reaction_image_midfraction_stearic_acid'] = show_reaction_image_midfraction_stearic_acid
 
             
     return render(request, 'pages/lipases.html', {
