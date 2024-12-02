@@ -13,13 +13,12 @@
               Back
             </a>
         
-        
-      
-
-
         <div class="h-full w-full">
-           {% include 'pages/widgets/lipases_widgets/condional_naming.html' %}     {% comment %} Please do not check this component, the code is too ugly, it gives me shame hahahahha {% endcomment %}
-        
+
+           {% include 'pages/widgets/lipases_widgets/conditional_iframes.html' %}     {% comment %} Please do not check this component, the code is too ugly, it gives me shame hahahahha {% endcomment %}
+          
+
+       <p class="mt-8"> simplified representation</p>
             <script>
                 let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 700, 500);
                 transformStick.styles.set3DRepresentation('Ball and Stick');
@@ -45,8 +44,9 @@
                     console.error("Error loading molecule:", error);
                   });
               </script> 
-            
         </div>
+
+      
     </main>
   </div>
   <style>

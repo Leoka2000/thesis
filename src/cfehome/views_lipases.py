@@ -14,7 +14,7 @@ def lipases_view(request):
     
     # Define SMILES strings for reagents and products (First reaction)
     first_cbs_reaction_reagents = {
-        "palm_oil_mid_fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O",
+        "palm_oil_mid_fraction": "C(CCCCCCC\C=C/CCCCCCCC)(=O)OCC(COC(CCCCCCCCCCCCCCC)=O)OC(CCCCCCCCCCCCCCC)=O", #done iframe
         "stearic_acid": "C(CCCCCCCCCCCCCCCCC)(=O)O",
     }
     first_cbs_reaction_products = {
