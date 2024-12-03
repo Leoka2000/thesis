@@ -12,7 +12,7 @@ def oxidoreductases_view(request):
     
     # Additional SMILES for the lignin reaction
     lignin_reaction_reagents = [
-        "COC1=C(C=C(C=C1)OC)CC(CO)O",  # 1-(3,4-dimethoxyphenyl)-2-(2-methoxyphenoxy)propane-1,3-diol
+        "COC=1C=C(C=CC1OC)C(CC1=CC=C(C=C1)O)O",  # 1-(3,4-dimethoxyphenyl)-2-(2-methoxyphenoxy)propane-1,3-diol
         "OO"  # Hydrogen peroxide (H₂O₂)
     ]
     lignin_reaction_products = [

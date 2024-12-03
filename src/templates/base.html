@@ -6,7 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block head_title %}CFE Home{% endblock %}</title>
-    {% include 'head/css.html' %}
+    {% include 'head/head.html' %}
+
+    <style>body {
+      font-family: 'Nunito', sans-serif!important;
+  }
+  </style>
 </head>
 <body class="h-screen" x-data="{ loading: false }" x-init="
 window.addEventListener('beforeunload', () => loading = true);
@@ -26,6 +31,6 @@ window.addEventListener('load', () => loading = false);
         {% block content %}{% endblock %}
     </div>
     
-    {% include 'head/js.html' %}
+    {% include 'head/body.html' %}
 </body>
 </html>

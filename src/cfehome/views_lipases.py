@@ -143,11 +143,7 @@ def lipases_view(request):
         "products_data": products_data,
         "show_reaction_image_top_oil_triolein": show_reaction_image_top_oil_triolein,
         "show_reaction_image_midfraction_stearic_acid": show_reaction_image_midfraction_stearic_acid,
-         "form_submitted": form_submitted,
-         
-   
-       
-        
+         "form_submitted": form_submitted,  
     })
 
 

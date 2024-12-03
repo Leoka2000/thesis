@@ -9,6 +9,8 @@
 
     <main class="h-auto p-4 pt-20 mx-2 md:ml-64">
       <h1 class=" font-bold text-2xl">Oxidoreductases</h1>
+   
+      <p class="font-thin my-1 mb-5 italic text-base text-gray-90 max-w-[45rem]"> Reactions based on the following article as reference:    Temporiti MEE, Nicola L, Nielsen E, Tosi S. Fungal Enzymes Involved in Plastics Biodegradation. Microorganisms. 2022 Jun 8;10(6):1180. doi: 10.3390/microorganisms10061180. PMID: 35744698; PMCID: PMC9230134.</p>
       <div class="w-full flex justify-center ">
         <form id="reactionForm" class="max-w-md w-full rounded-lg  border-2 border-neutral-100 shadow-sm p-4" method="get" action="{% url 'oxidoreductases' %}">
           <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" class="p-1 my-2 ">
@@ -43,10 +45,10 @@
         </div>
           <label for="specific_enzyme" class="block mb-2 text-sm font-medium text-gray-600 ">Select an enzyme</label>
           <select id="specific_enzyme" name="specific_enzyme" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-            <option selected value="laccase">laccase</option>
-            <option value="maganese_peroxidade">maganese peroxidase</option>
-            <option value="lignin_peroxidase">lignin peroxidase</option>
-            <option value="versatile_peroxidase">versatile peroxidase</option>
+            <option {% if request.GET.specific_enzyme == "laccase" %}selected{% endif %} value="laccase">laccase</option>
+            <option {% if request.GET.specific_enzyme == "maganese_peroxidade" %}selected{% endif %} value="maganese_peroxidade">maganese peroxidase</option>
+            <option  {% if request.GET.specific_enzyme == "lignin_peroxidase" %}selected{% endif %} value="lignin_peroxidase">lignin peroxidase</option>
+            <option {% if request.GET.specific_enzyme == "versatile_peroxidase" %}selected{% endif %} value="versatile_peroxidase">versatile peroxidase</option>
           </select>
           <br />
           <label for="chemical_group" class="block mb-2 text-sm font-medium text-gray-600 ">Select chemical group to add</label>
@@ -64,7 +66,7 @@
         </form>
       </div>
 
-      <div id="reactionContent" class="grid gap-4">
+      <div id="reactionContent" class=" gap-4">
 
         {% if not reaction_available %}
           <div x-show="showToast" x-init="setTimeout(() => showToast = false, 2000)" id="toast-warning" class="flex bg-red-100 items-center w-full max-w-xs p-4 text-gray-500  rounded-lg shadow  " role="alert">
@@ -88,26 +90,20 @@
        
           <!-- Top row: 3 equally spaced cards with right arrows outside -->
          
-          <h2 class="font-bold text-gray-600 block">Reagents</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <h2 class="font-bold text-center my-4 text-gray-600 block">Reagents</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {% for img in reagents_images %}
               <div class="flex items-center">
                 <a href="#" class="bg-white border border-gray-50 rounded-xl shadow w-full  flex justify-center items-center">
                   <img src="data:image/png;base64,{{ img }}" alt="Reagent Image" class="w-40 rounded-xl" />
                 </a>
-                
-                  
-                  
-              </div>
-            
-            {% endfor %}
-            
-                
+              </div>  
+            {% endfor %}     
           </div>
           
  
           <!-- Bottom row: 2 cards occupying full width of the grid, with right arrows outside -->
-          <h2 class=" font-bold text-gray-600 block">Products</h2>
+          <h2 class=" font-bold text-gray-600 my-4 text-center block">Products</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {% for img in products_images %}
               <div class="flex items-center">
