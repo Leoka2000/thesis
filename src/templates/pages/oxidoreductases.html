@@ -46,7 +46,7 @@
           <label for="specific_enzyme" class="block mb-2 text-sm font-medium text-gray-600 ">Select an enzyme</label>
           <select id="specific_enzyme" name="specific_enzyme" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             <option {% if request.GET.specific_enzyme == "laccase" %}selected{% endif %} value="laccase">laccase</option>
-            <option {% if request.GET.specific_enzyme == "maganese_peroxidade" %}selected{% endif %} value="maganese_peroxidade">maganese peroxidase</option>
+            <option {% if request.GET.specific_enzyme == "manganese_peroxidase" %}selected{% endif %} value="manganese_peroxidase">manganese peroxidase</option>
             <option  {% if request.GET.specific_enzyme == "lignin_peroxidase" %}selected{% endif %} value="lignin_peroxidase">lignin peroxidase</option>
             <option {% if request.GET.specific_enzyme == "versatile_peroxidase" %}selected{% endif %} value="versatile_peroxidase">versatile peroxidase</option>
           </select>
@@ -87,36 +87,34 @@
         {% endif %}
       
         {% if reaction_available %}
-       
-          <!-- Top row: 3 equally spaced cards with right arrows outside -->
-         
-          <h2 class="font-bold text-center my-4 text-gray-600 block">Reagents</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {% for img in reagents_images %}
-              <div class="flex items-center">
-                <a href="#" class="bg-white border border-gray-50 rounded-xl shadow w-full  flex justify-center items-center">
-                  <img src="data:image/png;base64,{{ img }}" alt="Reagent Image" class="w-40 rounded-xl" />
-                </a>
-              </div>  
-            {% endfor %}     
-          </div>
-          
- 
-          <!-- Bottom row: 2 cards occupying full width of the grid, with right arrows outside -->
-          <h2 class=" font-bold text-gray-600 my-4 text-center block">Products</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {% for img in products_images %}
-              <div class="flex items-center">
-                <a href="#" class="bg-white border border-gray-50 rounded-xl shadow w-full  flex justify-center items-center">
-                  <img src="data:image/png;base64,{{ img }}" alt="Product Image" class="w-40 rounded-xl" />
-                </a>
-                
-                
+        <div class="mt-8">
+          <h2 class="font-semibold text-center mb-6">Reagents</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+            {% for name, data in reagents_data.items %}
+            {% comment %} <a href="{% url 'molecule_detail' name %}"  class="cursor-pointer shadow-md hover:shadow-lg border rounded-md transition-shadow"> {% endcomment %}
+              <a href="{% url 'oxidoreductases_detail' name %}"  class="cursor-pointer shadow-md hover:shadow-lg border rounded-md transition-shadow">
+              <div class="w-64 p-4  bg-transparent ">
+                <img src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }}" class="w-24 h-24 object-contain" />
+                <p class="mt-2 text-base text-gray-700">{{ name }}</p>
               </div>
+            </a>
             {% endfor %}
           </div>
-       
-        {% endif %}
+
+          <h2 class="font-semibold text-center my-6">Products</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+            {% for name, data in products_data.items %}
+             {% comment %} <a href="{% url 'molecule_detail' name %}"  class="cursor-pointer shadow-md hover:shadow-lg border rounded-md transition-shadow"> {% endcomment %}
+             <a href="{% url 'oxidoreductases_detail' name %}" class="cursor-pointer shadow-md hover:shadow-lg border rounded-md transition-shadow">
+              <div class="w-64 p-4  bg-transparent ">
+                <img src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }}" class="w-24 h-24 object-contain" />
+                <p class="mt-2">{{ name }}</p>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
       </div>
 
     </main>
