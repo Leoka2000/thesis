@@ -15,6 +15,8 @@ urlpatterns = [
     path('oxidoreductases', views_oxidoreductases.oxidoreductases_view, name='oxidoreductases'),
     path('molecule/<str:molecule_name>/', views_lipases.molecule_detail_view, name='lipases_detail'),
     path('molecule-oxidoreductases/<str:molecule_name>/', views_oxidoreductases.molecule_view, name='oxidoreductases_detail'),
+
+  
     
   
     path('admin/', admin.site.urls),

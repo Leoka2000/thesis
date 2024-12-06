@@ -11,8 +11,18 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
         </svg>Back
       </a>
-    <p>  {{name}}</p>
-    <img src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }}" class="w-24 h-24 object-contain" />
+
+ 
+
+      <div class="rounded-lg overflow-hidden border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[250px]">
+        <div class="relative">
+          <img src="data:image/png;base64,{{ image_base64 }}"  alt="{{ name }}" class="w-full h-auto mt-10" />
+        </div>
+        <div class="p-3">
+            <h2 class="mb-4 text-base text-gray-600 leading-none tracking-tight">{{ name }}</h2>
+        </div>
+    </div>
+
     </main>
   </div>
 {% endblock %}

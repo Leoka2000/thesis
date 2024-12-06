@@ -70,6 +70,9 @@
 
           <button type="button" onclick="checkReaction()" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-blue-500 transition-colors duration-100 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 bg-blue-50 hover:text-blue-600 hover:bg-blue-100">
             Show reaction
+            <svg class="w-4 h-4 ml-2 -mr-1ite"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M19.003 3A2 2 0 0 1 21 5v2h-2V5.414L17.414 7h-2.828l2-2h-2.172l-2 2H9.586l2-2H9.414l-2 2H3V5a2 2 0 0 1 2-2h14.003ZM3 9v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9H3Zm2-2.414L6.586 5H5v1.586Zm4.553 4.52a1 1 0 0 1 1.047.094l4 3a1 1 0 0 1 0 1.6l-4 3A1 1 0 0 1 9 18v-6a1 1 0 0 1 .553-.894Z" clip-rule="evenodd"/>
+            </svg>
         </button>
         </form>
       </div>
@@ -82,12 +85,18 @@
         <h2 class="text-2xl font-semibold text-center mb-6">Reagents</h2>
         <div class="flex flex-wrap justify-center gap-8">
           {% for name, data in reagents_data.items %}
-          <a href="{% url 'lipases_detail' name %}"  class="cursor-pointer shadow-md hover:shadow-lg border rounded-md transition-shadow">
-            <div class="w-64 p-4 bg-transparent ">
-              {% include 'pages/widgets/lipases_widgets/conditional_naming.html' %}  
-              <img class="w-full h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule"/>
+          <div class="rounded-lg flex flex-col justify-between overflow-hidden  border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[250px]">
+            <div class="relative">
+              <img src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }}" class="w-full mt-5 h-auto" />
             </div>
-          </a>
+            <div class="p-7">
+              {% include 'pages/widgets/lipases_widgets/conditional_naming.html' %} 
+                <a href="{% url 'lipases_detail' name %}" class="inline-flex w-full items-center justify-between h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-neutral-950 hover:bg-neutral-950/90">
+                  <span>View molecule details</span>
+                  <svg class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+            </div>
+        </div>
           {% endfor %}
         </div>
       </div>
@@ -97,12 +106,20 @@
         <h2 class="text-2xl font-semibold text-center mb-6">Products</h2>
         <div class="flex flex-wrap justify-center gap-8">
           {% for name, data in products_data.items %}
-      <a href="{% url 'lipases_detail' name %}" class="cursor-pointer border rounded-md shadow-md hover:shadow-lg transition-shadow">
-        <div class="w-64 p-4 bg-transparent">
-          {% include 'pages/widgets/lipases_widgets/conditional_naming.html' %} 
-          <img class="w-full h-auto mt-4" src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }} molecule">
+          <div class="rounded-lg flex flex-col justify-between overflow-hidden  border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[250px]">
+            <div class="relative">
+              <img src="data:image/png;base64,{{ data.image_base64 }}" alt="{{ name }}" class="w-full mt-5 h-auto" />
+            </div>
+            <div class="p-7">
+              {% include 'pages/widgets/lipases_widgets/conditional_naming.html' %} 
+                <a href="{% url 'lipases_detail' name %}" class="inline-flex w-full items-center justify-between h-10 px-4 py-2 text-sm font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-neutral-950 hover:bg-neutral-950/90">
+                  <span>View molecule details</span>
+                  <svg class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+            </div>
         </div>
-      </a>
+          
+          
       {% endfor %}
         </div>
       </div>
