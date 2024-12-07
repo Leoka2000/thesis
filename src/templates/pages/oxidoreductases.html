@@ -94,7 +94,7 @@
       
         {% if reaction_available %}
         <div class="mt-8">
-          <h2 class="font-semibold text-center mb-6">Reagents</h2>
+          <h2 class="font-semibold text-center sm:text-2xl text-xl mb-6">Reagents</h2>
         <div class="flex flex-wrap justify-center gap-8">
             {% for name, data in reagents_data.items %}
             <div class="rounded-lg flex flex-col justify-between overflow-hidden  border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[250px]">
@@ -112,7 +112,7 @@
             {% endfor %}
           </div>
 
-          <h2 class="font-semibold text-center my-6">Products</h2>
+          <h2 class="font-semibold text-center sm:text-2xl text-xl my-6">Products</h2>
         <div class="flex flex-wrap justify-center gap-8">
             {% for name, data in products_data.items %}
             

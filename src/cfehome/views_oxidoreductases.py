@@ -19,12 +19,15 @@ def molecule_view(request, molecule_name):
         'smiles': molecule_data.get('smiles') if molecule_data else None,
         'image_base64': molecule_data.get('image_base64') if molecule_data else None,
     })
-    
+
+
+
 def oxidoreductases_view(request):
     # Define SMILES strings for reagents and products (Laccase reaction)
+
     laccase_reagents = {
-        "4-Benzenediol": "C1=CC(=CC=C1O)O",
-        "Oxygen": "O=O", 
+        "4-Benzenediol": "[H]C1=C([H])C(=C(C(=C1[H])[O][H])[H])[O][H]",
+         "Oxygen": "[O]=[O]"
     }
     laccase_products = {
         "Benzosemiquinone": "C1=CC(=CC=C1[O])O",
@@ -37,7 +40,7 @@ def oxidoreductases_view(request):
         "Hydrogen Peroxide": "OO",
     }
     lignin_peroxidase_products = {
-        "3,4-Dimethoxybenzaldehyde": "COC1=CC=C(C=C1OC)C=O ",
+        "3,4-Dimethoxybenzaldehyde": "COC1=CC=C(C=C1OC)C=O",
         "2-Methoxyphenol": "COC1=CC=CC=C1O",
         "Glycolaldehyde": "O=CCO",
         "Water": "O",
@@ -45,12 +48,12 @@ def oxidoreductases_view(request):
 
     # Define SMILES strings for reagents and products (Versatile Peroxidase reaction)
     versatile_peroxidase_reagents = {
-        "Versatile Reactant": "COC1=C(C=C(C=C1)OC)CC(CO)OC1=CC=CC=C1OC",
+        "1-(4-hydroxy-3-methoxyphenyl)-2-(2-methoxyphenoxy)propane-1,3-diol": "COC1=C(C=C(C=C1)OC)CC(CO)OC1=CC=CC=C1OC",
         "Hydrogen Peroxide": "OO",
     }
     versatile_peroxidase_products = {
-        "3,4-Dimethoxybenzaldehyde": "COC1=CC=C(C=C1OC)C=O",
-        "2-Methoxyphenol": "COC1=CC=CC=C1O",
+        "4-hydroxy-3-methoxybenzaldehyde": "COC1=CC=C(C=C1OC)C=O",
+        "2-methoxyphenol": "COC1=CC=CC=C1O",
         "Glycolaldehyde": "O=CCO",
         "Water": "O",
     }
@@ -69,6 +72,9 @@ def oxidoreductases_view(request):
     selected_enzyme = request.GET.get('specific_enzyme', '').lower()
     selected_chemical = request.GET.get('chemical_group', '').lower()
 
+
+    
+
     def process_molecules(molecule_dict):
         processed_data = {}
         for name, smiles in molecule_dict.items():
@@ -76,13 +82,13 @@ def oxidoreductases_view(request):
             if molecule:
                 # Add explicit hydrogen atoms to the molecule
                 molecule_with_h = Chem.AddHs(molecule)
-
+             
                 # Convert the molecule to SMILES and generate the image
                 smiles_string = Chem.MolToSmiles(molecule_with_h)
 
                 # Generate the image with hydrogens explicitly shown
                 img = Draw.MolToImage(molecule_with_h, kekulize=True, highlightAtoms=[], size=(500, 500))
-
+                
                 # Save image to a buffer in PNG format
                 buffered = BytesIO()
                 img.save(buffered, format="PNG")

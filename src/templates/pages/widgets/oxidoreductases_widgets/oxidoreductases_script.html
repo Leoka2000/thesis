@@ -11,18 +11,61 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
         </svg>Back
       </a>
-
- 
-
-      <div class="rounded-lg overflow-hidden border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[250px]">
-        <div class="relative">
-          <img src="data:image/png;base64,{{ image_base64 }}"  alt="{{ name }}" class="w-full h-auto mt-10" />
-        </div>
-        <div class="p-3">
+      <div class="flex justify-start gap-2 flex-wrap">
+        <div class="rounded-lg overflow-hidden border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[250px]">
+          <div class="relative">
+            <img src="data:image/png;base64,{{ image_base64 }}" alt="{{ name }}" class="w-full h-auto mt-10" />
+          </div>
+          <div class="p-3">
             <h2 class="mb-4 text-base text-gray-600 leading-none tracking-tight">{{ name }}</h2>
+          </div>
         </div>
-    </div>
-
+        {% if name not in 'Mn²⁺, Hydrogen Ions, Mn³⁺' %}
+        <div class="w-20">
+            <style>
+            .ChemDoodleWebComponent {
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+                display: flex;
+                justify-content: center;
+                cursor: grab;
+            }
+            canvas.ChemDoodleWebComponent {
+                border: 1px solid;
+                border-color: rgb(229 229 229 / 0.6);
+                width: 40rem!important;
+            }
+            </style>
+            <script>
+                let transformStick = new ChemDoodle.TransformCanvas3D('transformStick', 550, 360);
+                transformStick.styles.set3DRepresentation('Wireframe');
+                transformStick.styles.backgroundColor = 'white';
+                transformStick.styles.borderColor = 'white';
+                
+                const moleculeUrl = "{% static 'oxi_molfiles/' %}{{ name }}.mol";
+                
+                // Fetch the content of the MOL file
+                fetch(moleculeUrl)
+                  .then((response) => {
+                    if (!response.ok) {
+                      throw new Error('Failed to load the mol file.');
+                    }
+                    return response.text(); // Read the file content as text
+                  })
+                  .then((molFileContent) => {
+                    let molecule = ChemDoodle.readMOL(molFileContent, 1); // Pass the content to readMOL
+                    transformStick.loadMolecule(molecule); // Load the molecule into the canvas
+                  })
+                  .catch((error) => {
+                    console.error('Error loading molecule:', error);
+                  });
+            </script>
+        </div>
+        {% endif %}
+        
+      </div>
     </main>
   </div>
+
+  
 {% endblock %}
